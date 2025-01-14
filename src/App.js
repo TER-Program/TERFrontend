@@ -8,7 +8,7 @@ import Regisztracio from './pages/Regisztracio';
 
 function App() {
   return (
-    <BrowserRouter>
+    
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Kezdolap />} />
@@ -16,7 +16,7 @@ function App() {
           <Route path="regisztracio" element={<Regisztracio />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    
   );
 }
 
