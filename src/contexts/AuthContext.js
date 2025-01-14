@@ -12,6 +12,8 @@ export const AuthProvider = ({ children }) => {
     await myAxios.get("/sanctum/csrf-cookie");
   };
 
+
+
   const regisztracio = async (adat) => {
     await csrf();
     try {
@@ -21,6 +23,17 @@ export const AuthProvider = ({ children }) => {
       navigate("/");
     } catch (error) {
       console.error("Regisztrációs hiba:", error);
+    }
+  };
+  const login = async (adat) => {
+    await csrf();
+    try {
+      await myAxios.post("/login", adat);
+      console.log("Siker!");
+      getUser();
+      navigate("/");
+    } catch (error) {
+      console.error("Bejelentkezési hiba:", error);
     }
   };
 
@@ -46,7 +59,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ regisztracio, logout, user, getUser }}>
+    <AuthContext.Provider value={{ regisztracio, logout, user, getUser, login }}>
       {children}
     </AuthContext.Provider>
   );

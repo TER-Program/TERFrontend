@@ -1,9 +1,13 @@
-import React from 'react';
+import { useAuthContext } from "../contexts/AuthContext";
+
 
 export default function Kezdolap() {
-  return (
-    <div>
-      <h1>Üdvözöljük a TÉR Weboldalon!</h1>
-    </div>
-  );
+     const { user } = useAuthContext(); 
+
+    return (
+        <div>
+            <h1>Kezdőlap</h1>
+            <p>Bejelentkezett felhasználó: { user==null?"Nincs bejelentkezett felhasználó!":user.name }</p>
+        </div>
+    );
 }

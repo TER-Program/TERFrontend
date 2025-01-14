@@ -1,25 +1,21 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useAuthContext } from '../contexts/AuthContext';
+import React, { useState, useContext } from 'react';
+import { AuthContext } from '../contexts/AuthContext';
 
 export default function Bejelentkezes() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const navigate = useNavigate();
-  const { loginReg, errors } = useAuthContext() || { errors: {} }; // Biztosítsd, hogy az errors mindig definiálva legyen
+  const { login } = useContext(AuthContext);
 
-  const handleSubmit = async (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
-
-    const adat = {
+    let adat = {
       email: email,
       password: password,
     };
     console.log(adat);
-
-    loginReg(adat, "/login");
-  };
+    login(adat);
+  }
 
   return (
     <div className="m-auto" style={{ maxWidth: "400px" }}>
@@ -37,14 +33,9 @@ export default function Bejelentkezes() {
             }}
             className="form-control"
             id="email"
-            placeholder="email"
+            placeholder="Email"
             name="email"
           />
-        </div>
-        <div>
-          {errors.email && (
-            <span className="text-danger">{errors.email[0]}</span>
-          )}
         </div>
         <div className="mb-3">
           <label htmlFor="pwd" className="form-label">
@@ -58,28 +49,15 @@ export default function Bejelentkezes() {
             }}
             className="form-control"
             id="pwd"
-            placeholder="jelszó"
+            placeholder="Jelszó"
             name="pwd"
           />
-          <div>
-            {errors.password && (
-              <span className="text-danger">{errors.password[0]}</span>
-            )}
-          </div>
         </div>
 
-        <div className=" text-center">
-          <button type="submit" className="btn btn-primary w-100">
-            Bejelentkezés a fiókba
-          </button>
 
-          <p>
-            Még nincs felhaszálóneve?
-            <Link className="nav-link text-info" to="/regisztracio">
-              Regisztráció
-            </Link>
-          </p>
-        </div>
+        <button type="submit" className="btn btn-primary w-100">
+          Bejelentkezés
+        </button>
       </form>
     </div>
   );
