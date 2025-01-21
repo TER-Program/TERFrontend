@@ -3,20 +3,30 @@ body {
   background-color: #f4f4f4;
   margin: 0;
   padding: 0;
+  background-image: url("kep/hatter3.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
 }
 
 .container {
   max-width: 400px;
   margin: 50px auto;
   padding: 20px;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.8);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
 
 h1 {
   text-align: center;
-  color: #333;
+  color: #ffffff;
+}
+
+p {
+  color: white;
+  text-align: center;
 }
 
 form {
@@ -65,7 +75,7 @@ form {
 
 .nav-link {
   text-decoration: none;
-  color: #007bff;
+  color: #fff;
   padding: 10px 15px;
   display: inline-block;
   border-radius: 4px;
@@ -78,7 +88,7 @@ form {
 }
 
 nav {
-  background-color: #a6c8ec;
+  background-color: rgba(0, 0, 0, 0.7);
   padding: 10px;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -94,4 +104,17 @@ nav ul {
 
 nav ul li {
   margin: 0 10px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+nav ul li a:hover {
+  background-color: #9cb8d6;
+  color: #fff;
 }
