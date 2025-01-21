@@ -6,16 +6,20 @@ import Kezdolap from './pages/Kezdolap';
 import Bejelentkezes from './pages/Bejelentkezes';
 import Regisztracio from './pages/Regisztracio';
 import Admin from './pages/Admin';
-
+import GuestLayout from './layouts/GuestLayout';
+import AdminLayout from './layouts/AdminLayout';
 function App() {
   return (
     
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Kezdolap />} />
-          <Route path="bejelentkezes" element={<Bejelentkezes />} />
-          <Route path="regisztracio" element={<Regisztracio />} />
-          <Route path="admin" element={<Admin />} />
+          <Route element={<AdminLayout />}>
+              <Route index element={<Kezdolap />} />
+          </Route>
+          <Route element={<GuestLayout />}>
+              <Route path="bejelentkezes" element={<Bejelentkezes />} />
+              <Route path="regisztracio" element={<Regisztracio />} />
+          </Route>
         </Route>
       </Routes>
     

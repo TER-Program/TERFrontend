@@ -53,6 +53,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const { data } = await myAxios.get("/api/user");
       setUser(data);
+      console.log(data)
     } catch (error) {
       console.error("Felhasználó lekérdezési hiba:", error);
     }
