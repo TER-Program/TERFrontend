@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { myAxios } from '../contexts/MyAxios';
+import { useAuthContext } from '../contexts/AuthContext';
 
 export default function Admin() {
   const [users, setUsers] = useState([]);
-
+  const { user, logout } = useAuthContext(); 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -16,7 +17,7 @@ export default function Admin() {
 
     fetchUsers();
   }, []);
-
+  console.log(user)
   return (
     <div className="admin-container">
       <h1>Admin Felület</h1>
@@ -44,6 +45,7 @@ export default function Admin() {
           ))}
         </tbody>
       </table>
+      <button onClick={logout}>Kijelentkezés</button>
     </div>
   );
 }
