@@ -9,28 +9,42 @@ import Admin from './pages/Admin';
 import GuestLayout from './layouts/GuestLayout';
 import AdminLayout from './layouts/AdminLayout';
 import TanarLayout from './layouts/TanarLayout';
+import FelelosLayout from './layouts/FelelosLayout';
 function App() {
+  const { user } = useAuthContext();
   return (
-    
+    <>
+
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route element={<AdminLayout />}>
-              <Route index element={<Admin />} />
-          </Route>
-          <Route element={<FelelosLayout />}>
-              <Route index element={<NavigacioFelelos />} />
-          </Route>
-          <Route element={<TanarLayout />}>
-          <Route index element={<NavigacioTanar />} />
-          
-          </Route>
+        {/* Vendég layout */}
+        {!user && (
           <Route element={<GuestLayout />}>
-              <Route path="bejelentkezes" element={<Bejelentkezes />} />
-              <Route path="regisztracio" element={<Regisztracio />} />
+            <Route path="/" element={<Kezdolap />} />
+            <Route path="bejelentkezes" element={<Bejelentkezes />} />
+            <Route path="regisztracio" element={<Regisztracio />} />
           </Route>
-        </Route>
+        )}
+
+        {user && (
+          <Route
+            path="/"
+            element={
+              user.role === 0 ? (
+                <AdminLayout />
+              ) : user.role === 1 ? (
+                <FelelosLayout />
+              ) : user.role === 2 ? (
+                <TanarLayout />
+              ) : (
+                <div>Nem jogosult hozzáférés</div> // Hibakezelés, ha nem ismert a role
+              )
+            }
+          >
+            <Route index element={<Kezdolap />} />
+          </Route>
+        )}
       </Routes>
-    
+    </>
   );
 }
 
