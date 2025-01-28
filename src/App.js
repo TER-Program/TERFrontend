@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route element={<AdminLayout />}>
-              <Route index element={<Kezdolap />} />
+              <Route index element={<Admin />} />
           </Route>
           <Route element={<GuestLayout />}>
               <Route path="bejelentkezes" element={<Bejelentkezes />} />

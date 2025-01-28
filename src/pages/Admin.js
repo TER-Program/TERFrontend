@@ -7,7 +7,7 @@ export default function Admin() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await myAxios.get('/users');
+        const response = await myAxios.get('/api/admin/users');
         setUsers(response.data);
       } catch (error) {
         console.error('Hiba a felhasználók lekérdezésekor:', error);
