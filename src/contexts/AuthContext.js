@@ -8,6 +8,8 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const [celok, setCelok] = useState([]);
+  const [pedagogusok, setPedagogusok] = useState([]);
+  const [szempontok, setszempontok] = useState([]);
   const csrf = async () => {
     await myAxios.get("/sanctum/csrf-cookie");
   };
@@ -37,6 +39,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const postCel = async (adat) => {
+    try {
+      await myAxios.post("/newGoal", adat);
+      console.log("Siker!");
+      getUser();
+      navigate("/");
+    } catch (error) {
+      console.error("Feltöltési hiba:", error);
+    }
+  };
+
   const logout = async () => {
     await csrf();
     try {
@@ -59,18 +72,37 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const getCelok = async () => {
+
+  const fetchCelok = async () => {
     try {
-      const { data } = await myAxios.get("/api/goals");
-      setCelok(data);
+      const response = await myAxios.get('/api/performanceGoals');
+      setCelok(response.data);
     } catch (error) {
-      console.error("Felhasználó lekérdezési hiba:", error);
+      console.error('Hiba a célok lekérdezésekor:', error);
+    }
+  };
+
+  const fetchSzempontok = async () => {
+    try {
+      const response = await myAxios.get('/api/aspectItem');
+      setszempontok(response.data);
+    } catch (error) {
+      console.error('Hiba a szempontok lekérdezésekor:', error);
+    }
+  };
+
+  const fetchPedagogusok = async () => {
+    try {
+      const response = await myAxios.get('/api/teachers');
+      setPedagogusok(response.data);
+    } catch (error) {
+      console.error('Hiba a pedagógusok lekérdezésekor:', error);
     }
   };
 
 
   return (
-    <AuthContext.Provider value={{ regisztracio, logout, user, getUser, login, getCelok, celok }}>
+    <AuthContext.Provider value={{ regisztracio, logout, user, getUser, login, fetchCelok, celok , fetchPedagogusok, pedagogusok, fetchSzempontok, szempontok, postCel}}>
       {children}
     </AuthContext.Provider>
   );
