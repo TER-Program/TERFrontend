@@ -1,31 +1,15 @@
-import { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
-import Spinner from "react-bootstrap/Spinner";
 import { useAuthContext } from "../contexts/AuthContext";
+import { useEffect } from "react";
 
 const Tanar = () => {
-  const [celok, setCelok] = useState([]);
-  const [betolt, setBetolt] = useState(true);
-  const { user, logout } = useAuthContext();
-
+  
+  const {logout, celok, getCelok } = useAuthContext();
   useEffect(() => {
-    fetch("/api/goals")
-      .then((response) => response.json())
-      .then((data) => {
-        setCelok(data);
-        setBetolt(false);
-      })
-      .catch((error) => {
-        console.error("Hiba a célok lekérésekor:", error);
-        setBetolt(false);
-      });
+    getCelok();
   }, []);
-
-  if (betolt) {
-    return <div className="d-flex justify-content-center mt-4"><Spinner animation="border" /></div>;
-  }
-
+  
   return (
     <Card className="p-4">
       <h2 className="mb-4">Teljesítmény Célok</h2>

@@ -7,7 +7,7 @@ export const AuthContext = createContext("");
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
-
+  const [celok, setCelok] = useState([]);
   const csrf = async () => {
     await myAxios.get("/sanctum/csrf-cookie");
   };
@@ -59,8 +59,18 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const getCelok = async () => {
+    try {
+      const { data } = await myAxios.get("/api/goals");
+      setCelok(data);
+    } catch (error) {
+      console.error("Felhasználó lekérdezési hiba:", error);
+    }
+  };
+
+
   return (
-    <AuthContext.Provider value={{ regisztracio, logout, user, getUser, login }}>
+    <AuthContext.Provider value={{ regisztracio, logout, user, getUser, login, getCelok, celok }}>
       {children}
     </AuthContext.Provider>
   );
