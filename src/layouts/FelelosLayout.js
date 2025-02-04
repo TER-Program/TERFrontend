@@ -1,13 +1,9 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import Felelos from "../pages/Felelos";
-import { useAuthContext } from "../contexts/AuthContext";
-
-
-
+import {useAuthContext}  from "../contexts/AuthContext";
+import NavigacioFelelos from "../navigacio/NavigacioFelelos";
 
 export default function FelelosLayout() {
     const { user } = useAuthContext();
-    return user && user.role === 3 ?  <>  <Felelos /> <Outlet /> </> : <Navigate to="/bejelentkezes" />;
-
+    return user && user.role === 1 ?  <>  <NavigacioFelelos /> <Outlet /> </> : <Navigate to="/bejelentkezes" />;
 }

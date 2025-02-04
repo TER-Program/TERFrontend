@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
       await myAxios.post("/logout");
       console.log("Sikeres kijelentkezés!");
       setUser(null);
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       console.error("Kijelentkezési hiba:", error);
     }
