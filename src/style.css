@@ -19,56 +19,16 @@ body {
   border-radius: 8px;
 }
 
-h1 {
-  text-align: center;
-  color: #ffffff;
+.card {
+  margin: 20px auto;
+  max-width: 800px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
-p {
-  color: white;
-  text-align: center;
-}
-
-.form-label {
-  font-weight: bold;
-  margin-bottom: 5px;
-  display: block;
-}
-
-.form-control {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.btn-primary {
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 100%;
-}
-
-.btn-primary:hover {
-  background-color: #0056b3;
-}
-
-.btn-secondary {
-  background-color: #6c757d;
-  color: #fff;
-  border: none;
-  padding: 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 100%;
-}
-
-.btn-secondary:hover {
-  background-color: #5a6268;
+.card h2, .card h3 {
+  color: #343a40;
 }
 
 .table {
@@ -90,6 +50,81 @@ p {
 
 .table tr:nth-child(even) {
   background-color: #f2f2f2;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn {
+  border-radius: 4px;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+  border: none;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  color: #fff;
+  border: none;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+h1 {
+  text-align: center;
+  color: #ffffff;
+}
+
+p {
+  color: white;
+  text-align: center;
+}
+
+.form-label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
 }
 
 .edit-form {
@@ -126,4 +161,20 @@ nav ul li a {
 nav ul li a:hover {
   background-color: #9cb8d6;
   color: #fff;
+}
+
+.mt-2 {
+  margin-top: 10px;
+}
+
+.mt-3 {
+  margin-top: 20px;
+}
+
+.mb-4 {
+  margin-bottom: 30px;
+}
+
+.me-2 {
+  margin-right: 10px;
 }

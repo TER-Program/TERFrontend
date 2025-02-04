@@ -12,7 +12,7 @@ export default function NavigacioAdmin() {
                 <ul className="navbar-nav">
                     <li className="navbar-item">
                         <Link className="nav-link" to="/">
-                            ADMIN
+                            Kezdőlap Admin
                             
                         </Link>
                     </li>
