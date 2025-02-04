@@ -1,13 +1,17 @@
 
 import {useAuthContext}  from "../contexts/AuthContext";
+import Admin from "./Admin";
+
 
 export default function Kezdolap() {
      const { user } = useAuthContext(); 
 
     return (
         <div>
-            <h1>Kezdőlap Admin</h1>
+            <h1>Tanár Teljesítményértékelés</h1>
             <p>Bejelentkezett felhasználó: { user==null?"Nincs bejelentkezett felhasználó!":user.name }</p>
+            
+            
         </div>
     );
 }

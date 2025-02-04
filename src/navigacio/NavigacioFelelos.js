@@ -11,7 +11,7 @@ export default function NavigacioFelelos() {
                 <ul className="navbar-nav">
                     <li className="navbar-item">
                         <Link className="nav-link" to="/">
-                            Kezdőlap User
+                            Kezdőlap Felelős
                         </Link>
                     </li>
 

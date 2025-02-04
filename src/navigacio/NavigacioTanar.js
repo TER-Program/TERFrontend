@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {useAuthContext}  from "../contexts/AuthContext";
-import Admin from "../pages/Admin";
+import { useAuthContext }  from "../contexts/AuthContext";
 
-export default function NavigacioAdmin() {
+export default function Navigaciotanar() {
     const {  logout } = useAuthContext();
 
     return (
@@ -12,8 +11,7 @@ export default function NavigacioAdmin() {
                 <ul className="navbar-nav">
                     <li className="navbar-item">
                         <Link className="nav-link" to="/">
-                            ADMIN
-                            
+                            Kezdőlap Tanár
                         </Link>
                     </li>
 
