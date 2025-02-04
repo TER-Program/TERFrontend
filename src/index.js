@@ -5,7 +5,7 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
-
+import Button from 'react-bootstrap/Button';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

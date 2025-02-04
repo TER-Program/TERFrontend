@@ -1,70 +1,66 @@
-import React, { useState, useEffect } from 'react';
-import { myAxios } from '../contexts/MyAxios';
-import { useAuthContext } from '../contexts/AuthContext';
+import { useEffect, useState } from "react";
+import { Card } from "react-bootstrap";
+import Table from "react-bootstrap/Table";
+import Spinner from "react-bootstrap/Spinner";
+import { useAuthContext } from "../contexts/AuthContext";
 
-function Tanar() {
+const Tanar = () => {
   const [celok, setCelok] = useState([]);
-  const [dokumentum, setDokumentum] = useState(null);
-  const { user } = useAuthContext();
+  const [betolt, setBetolt] = useState(true);
+  const { user, logout } = useAuthContext();
 
   useEffect(() => {
-    const fetchCelok = async () => {
-      try {
-        const response = await myAxios.get(`/api/tanar/celok/${user.id}`);
-        setCelok(response.data);
-      } catch (error) {
-        console.error('Hiba a célok lekérdezésekor:', error);
-      }
-    };
-
-    fetchCelok();
-  }, [user.id]);
-
-  const handleDokumentumHozzafuzese = async (celId) => {
-    const formData = new FormData();
-    formData.append('dokumentum', dokumentum);
-
-    try {
-      await myAxios.post(`/api/tanar/celok/${celId}/dokumentum`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+    fetch("/api/goals")
+      .then((response) => response.json())
+      .then((data) => {
+        setCelok(data);
+        setBetolt(false);
+      })
+      .catch((error) => {
+        console.error("Hiba a célok lekérésekor:", error);
+        setBetolt(false);
       });
-      alert('Dokumentum sikeresen hozzáfűzve!');
-    } catch (error) {
-      console.error('Hiba a dokumentum hozzáfűzésekor:', error);
-    }
-  };
+  }, []);
+
+  if (betolt) {
+    return <div className="d-flex justify-content-center mt-4"><Spinner animation="border" /></div>;
+  }
 
   return (
-    <div className="container">
-      <h1>Tanár Teljesítménycélok</h1>
-      <ul className="list-group">
-        {celok.map((cel) => (
-          <li key={cel.id} className="list-group-item">
-            <h3>{cel.name}</h3>
-            <p>{cel.aspect_item}</p>
-            <p>Státusz: {cel.status}</p>
-            <p>Pontszám: {cel.score}</p>
-            <p>Teljesítve: {cel.completed ? 'Igen' : 'Nem'}</p>
-            <p>Létrehozva: {new Date(cel.created_at).toLocaleDateString()}</p>
-            <p>Frissítve: {new Date(cel.updated_at).toLocaleDateString()}</p>
-            <input
-              type="file"
-              className="form-control"
-              onChange={(e) => setDokumentum(e.target.files[0])}
-            />
-            <button
-              className="btn btn-primary mt-2"
-              onClick={() => handleDokumentumHozzafuzese(cel.id)}
-            >
-              Dokumentum hozzáfűzése
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Card className="p-4">
+      <h2 className="mb-4">Teljesítmény Célok</h2>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Név</th>
+            <th>Pontszám</th>
+            <th>Állapot</th>
+            <th>Teljesítve</th>
+            <th>Dokumentum</th>
+          </tr>
+        </thead>
+        <tbody>
+          {celok.map((cel) => (
+            <tr key={cel.id}>
+              <td>{cel.name}</td>
+              <td>{cel.score}</td>
+              <td>{cel.status === 1 ? "Teljesítve" : "Folyamatban"}</td>
+              <td>{cel.completed || "-"}</td>
+              <td>
+                {cel.document ? (
+                  <a href={cel.document} className="text-primary" target="_blank" rel="noopener noreferrer">Megtekintés</a>
+                ) : (
+                  "-"
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+        <button className="btn btn-primary" onClick={logout}>Kijelentkezés</button>
+      </Table>
+    </Card>
+    
   );
-}
+};
 
 export default Tanar;
