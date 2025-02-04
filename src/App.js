@@ -10,40 +10,42 @@ import { Routes, Route } from 'react-router-dom';
 import GuestLayout from "./layouts/GuestLayout";
 import Admin from './pages/Admin';
 import Tanar from './pages/Tanar';
+import Felelos from './pages/Felelos';
 
 function App() {
     const { user } = useAuthContext();
     return (
-        <>
-            <Routes>
-                {/* Vendég layout */}
-                {!user && (
-                    <Route element={<GuestLayout />}>
-                        <Route path="/" element={<Kezdolap />} />
-                        <Route path="bejelentkezes" element={<Bejelentkezes />} />
-                        <Route path="regisztracio" element={<Regisztracio />} />
-                    </Route>
-                )}
+        <Routes>
+            {/* Vendég layout */}
+            {!user && (
+                <Route element={<GuestLayout />}>
+                    <Route path="/" element={<Kezdolap />} />
+                    <Route path="bejelentkezes" element={<Bejelentkezes />} />
+                    <Route path="regisztracio" element={<Regisztracio />} />
+                </Route>
+            )}
 
-                {/* Admin, User és Tanár ugyanazon útvonalon */}
-                {user && (
-                    <Route
-                        path="/"
-                        element={
-                            user.role === 0 ? (
-                                <Admin />
-                            ) : user.role === 2 ? (
-                                <Tanar />
-                            ) : user.role === 1 ? (
-                                <FelelosLayout />
-                            ) : null
-                        }
-                    >
-                        <Route index element={<Kezdolap />} />
-                    </Route>
-                )}
-            </Routes>
-        </>
+            {/* Admin, User és Tanár ugyanazon útvonalon */}
+            {user && (
+                <>
+                    {user.role === 0 && (
+                        <Route element={<AdminLayout />}>
+                            <Route path="/" element={<Admin />} />
+                        </Route>
+                    )}
+                    {user.role === 2 && (
+                        <Route element={<TanarLayout />}>
+                            <Route path="/" element={<Tanar />} />
+                        </Route>
+                    )}
+                    {user.role === 1 && (
+                        <Route element={<FelelosLayout />}>
+                            <Route path="/" element={<Felelos />} />
+                        </Route>
+                    )}
+                </>
+            )}
+        </Routes>
     );
 }
 

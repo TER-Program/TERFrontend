@@ -106,7 +106,7 @@ export default function Admin() {
           <button className="btn btn-secondary" onClick={() => setSzerkesztettFelhasznalo(null)}>Mégse</button>
         </div>
       )}
-      <button className="btn btn-primary" onClick={logout}>Kijelentkezés</button>
+      
     </div>
   );
 }

@@ -40,7 +40,7 @@ const Tanar = () => {
             </tr>
           ))}
         </tbody>
-        <button className="btn btn-primary" onClick={logout}>Kijelentkezés</button>
+        
       </Table>
     </Card>
     
