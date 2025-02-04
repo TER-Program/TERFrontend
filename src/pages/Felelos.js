@@ -6,6 +6,7 @@ import { useAuthContext } from '../contexts/AuthContext';
 function Felelos() {
   const [celok, setCelok] = useState([]);
   const [pedagogusok, setPedagogusok] = useState([]);
+  const [szempontok, setszempontok] = useState([]);
   const [ujCel, setUjCel] = useState({ teacher: '', aspect_item: '', name: '' });
   const [ertekeles, setErtekeles] = useState({ id: '', score: '', comment: '' });
   const { user, logout } = useAuthContext();
@@ -19,18 +20,28 @@ function Felelos() {
         console.error('Hiba a célok lekérdezésekor:', error);
       }
     };
-
+  
+    const fetchSzempontok = async () => {
+      try {
+        const response = await myAxios.get('/api/aspectItem');
+        setszempontok(response.data);
+      } catch (error) {
+        console.error('Hiba a szempontok lekérdezésekor:', error);
+      }
+    };
+  
     const fetchPedagogusok = async () => {
       try {
-        const response = await myAxios.get('/api/getGoalsByUserId/{id}');
+        const response = await myAxios.get('/api/teachers');
         setPedagogusok(response.data);
       } catch (error) {
         console.error('Hiba a pedagógusok lekérdezésekor:', error);
       }
     };
-
+  
     fetchCelok();
     fetchPedagogusok();
+    fetchSzempontok();
   }, []);
 
   const handleCelHozzaadas = async () => {
@@ -78,9 +89,12 @@ function Felelos() {
         </Form.Group>
         <Form.Group controlId="formAspectItem">
           <Form.Label>Szempont</Form.Label>
-          <Form.Control type="text" value={ujCel.aspect_item} onChange={(e) => setUjCel({ ...ujCel, aspect_item: e.target.value })} />
-        </Form.Group>
-        <Form.Group controlId="formName">
+          <Form.Control as="select" value={ujCel.aspect_item} onChange={(e) => setUjCel({ ...ujCel, aspect_item: e.target.value })}>
+            <option value="">Válassz szempontot</option>
+            {szempontok.map(szempont => (
+              <option key={szempont.id} value={szempont.id}>{szempont.name}</option>
+            ))}
+          </Form.Control>
           <Form.Label>Név</Form.Label>
           <Form.Control type="text" value={ujCel.name} onChange={(e) => setUjCel({ ...ujCel, name: e.target.value })} />
         </Form.Group>
