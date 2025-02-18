@@ -31,11 +31,13 @@ export default function Admin() {
   };
 
   const torles = async (felhasznaloId) => {
+    const updatedFelhasznalok = felhasznalok.filter((felhasznalo) => felhasznalo.id !== felhasznaloId);
+    setFelhasznalok(updatedFelhasznalok);
     try {
-      await myAxios.delete(`/api/admin/users/${felhasznaloId}`);
-      setFelhasznalok(felhasznalok.filter((felhasznalo) => felhasznalo.id !== felhasznaloId));
+      const response = await myAxios.delete(`api/deleteUser/${felhasznaloId}`);
     } catch (error) {
       console.error('Hiba a felhasználó törlésekor:', error);
+      setFelhasznalok(felhasznalok);
     }
   };
 

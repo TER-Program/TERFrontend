@@ -1,6 +1,6 @@
 
 import {useAuthContext}  from "../contexts/AuthContext";
-import Admin from "./Admin";
+
 
 
 export default function Kezdolap() {
