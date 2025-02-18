@@ -11,6 +11,7 @@ import GuestLayout from "./layouts/GuestLayout";
 import Admin from './pages/Admin';
 import Tanar from './pages/Tanar';
 import Felelos from './pages/Felelos';
+import Tanarok from './pages/Tanarok';
 
 function App() {
     const { user } = useAuthContext();
@@ -41,6 +42,7 @@ function App() {
                     {user.role === 1 && (
                         <Route element={<FelelosLayout />}>
                             <Route path="/" element={<Felelos />} />
+                            <Route path="Tanarok" element={<Tanarok />} />
                         </Route>
                     )}
                 </>

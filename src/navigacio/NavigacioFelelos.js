@@ -14,7 +14,11 @@ export default function NavigacioFelelos() {
                             Kezdőlap Felelős
                         </Link>
                     </li>
-
+                    <li className="navbar-item">
+                        <Link className="nav-link" to="tanarok">
+                            Tanárok
+                        </Link>
+                    </li>
                     <li className="navbar-item">
                         <button className="nav-link" onClick={() => { logout() }}>
                             Kijelentkezés
