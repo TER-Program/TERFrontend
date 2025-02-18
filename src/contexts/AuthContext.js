@@ -10,12 +10,15 @@ export const AuthProvider = ({ children }) => {
   const [celok, setCelok] = useState([]);
   const [pedagogusok, setPedagogusok] = useState([]);
   const [szempontok, setszempontok] = useState([]);
+  const [tanarPont, setTanarPont] = useState([]);
+
   const csrf = async () => {
     await myAxios.get("/sanctum/csrf-cookie");
   };
   useEffect(() => {
-    if(!user){
+    if (!user) {
       getUser()
+
     }
   }, []);
 
@@ -122,8 +125,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const fetchPontszam = async () => {
+    try {
+      const response = await myAxios.get(`/api/scorebyteacher`);
+      setTanarPont(response.data);
+    } catch (error) {
+      console.error('Hiba a célok lekérdezésekor:', error);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ regisztracio, logout, user, getUser, login, fetchCelok, celok , fetchPedagogusok, pedagogusok, fetchSzempontok, szempontok, postCel, fetchCelokById, postDokumentum}}>
+    <AuthContext.Provider value={{ fetchPontszam, tanarPont, regisztracio, logout, user, getUser, login, fetchCelok, celok, fetchPedagogusok, pedagogusok, fetchSzempontok, szempontok, postCel, fetchCelokById, postDokumentum }}>
       {children}
     </AuthContext.Provider>
   );
