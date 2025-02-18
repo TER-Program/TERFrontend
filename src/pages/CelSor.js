@@ -5,7 +5,7 @@ import { useAuthContext } from "../contexts/AuthContext";
 const CelSor = ({ cel }) => {
   const [openRow, setOpenRow] = useState(null);
   const [documents, setDocuments] = useState(""); // Fájl vagy szöveg adat
-  const [performanceGoal, setPerformanceGoal] = useState(""); // Fájl vagy szöveg adat
+
   const { postDokumentum } = useAuthContext();
   const toggleRow = (id) => {
     setOpenRow(openRow === id ? null : id);
@@ -14,14 +14,12 @@ const CelSor = ({ cel }) => {
     e.preventDefault();
     let adat = {
       documents: documents,
-      performanceGoal: performanceGoal
+      performanceGoal: cel.id
     };
     console.log(adat);
     postDokumentum(adat);
   }
-  useEffect(() => {
-    setPerformanceGoal(cel.id);
-  }, []);
+ 
 
   return (
     <>

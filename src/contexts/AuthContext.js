@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { myAxios } from './MyAxios';
 
@@ -13,7 +13,11 @@ export const AuthProvider = ({ children }) => {
   const csrf = async () => {
     await myAxios.get("/sanctum/csrf-cookie");
   };
-
+  useEffect(() => {
+    if(!user){
+      getUser()
+    }
+  }, []);
 
 
   const regisztracio = async (adat) => {

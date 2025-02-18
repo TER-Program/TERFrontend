@@ -8,7 +8,7 @@ import NavigacioAdmin from "../navigacio/NavigacioAdmin";
 
 export default function AdminLayout() {
     const { user } = useAuthContext();
-    return user && user.role===0  ? <>  <NavigacioAdmin /> <Outlet /> </> : <Navigate to="/bejelentkezes" />;
+    return user && user.role===0  ? <>  <NavigacioAdmin /> <Outlet /> </> : <Navigate to="" />;
 
 
 }
