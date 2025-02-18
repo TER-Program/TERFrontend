@@ -109,8 +109,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const postDokumentum = async (adat) => {
+    try {
+      await myAxios.post("/api/newDocument", adat);
+      console.log("Siker!");
+    } catch (error) {
+      console.error("Feltöltési hiba:", error);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ regisztracio, logout, user, getUser, login, fetchCelok, celok , fetchPedagogusok, pedagogusok, fetchSzempontok, szempontok, postCel, fetchCelokById}}>
+    <AuthContext.Provider value={{ regisztracio, logout, user, getUser, login, fetchCelok, celok , fetchPedagogusok, pedagogusok, fetchSzempontok, szempontok, postCel, fetchCelokById, postDokumentum}}>
       {children}
     </AuthContext.Provider>
   );

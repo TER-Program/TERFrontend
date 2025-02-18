@@ -1,15 +1,15 @@
-import { Card } from "react-bootstrap";
-import Table from "react-bootstrap/Table";
+import { useState, useEffect } from "react";
+import { Card, Table, Button, Form } from "react-bootstrap";
 import { useAuthContext } from "../contexts/AuthContext";
-import { useEffect } from "react";
+import CelSor from "./CelSor";
 
 const Tanar = () => {
-  
-  const {user,logout, celok, fetchCelokById } = useAuthContext();
+  const { user, celok, fetchCelokById, postDokumentum } = useAuthContext();
+
   useEffect(() => {
     fetchCelokById(user.id);
   }, []);
-  
+
   return (
     <Card className="p-4">
       <h2 className="mb-4">Teljesítmény Célok</h2>
@@ -20,22 +20,16 @@ const Tanar = () => {
             <th>Szempont</th>
             <th>Pontszám</th>
             <th>Teljesítve</th>
+            <th>Szöveg és Közzététel</th>
           </tr>
         </thead>
         <tbody>
-          {celok.map((cel) => (
-            <tr key={cel.id}>
-              <td>{cel.teacher_name}</td>
-              <td>{cel.aspect_name}</td>
-              <td>{cel.score}</td>
-              <td>{cel.completed || "-"}</td>
-            </tr>
+          {celok.map((cel, index) => (
+            <CelSor cel={cel} key={index} />
           ))}
         </tbody>
-        
       </Table>
     </Card>
-    
   );
 };
 
