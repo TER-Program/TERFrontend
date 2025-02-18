@@ -100,9 +100,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const fetchCelokById = async (userId) => {
+    try {
+      const response = await myAxios.get(`/api/getGoalsByUserId/${userId}`);
+      setCelok(response.data);
+    } catch (error) {
+      console.error('Hiba a célok lekérdezésekor:', error);
+    }
+  };
 
   return (
-    <AuthContext.Provider value={{ regisztracio, logout, user, getUser, login, fetchCelok, celok , fetchPedagogusok, pedagogusok, fetchSzempontok, szempontok, postCel}}>
+    <AuthContext.Provider value={{ regisztracio, logout, user, getUser, login, fetchCelok, celok , fetchPedagogusok, pedagogusok, fetchSzempontok, szempontok, postCel, fetchCelokById}}>
       {children}
     </AuthContext.Provider>
   );

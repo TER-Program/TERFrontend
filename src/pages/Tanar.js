@@ -5,9 +5,9 @@ import { useEffect } from "react";
 
 const Tanar = () => {
   
-  const {logout, celok, getCelok } = useAuthContext();
+  const {user,logout, celok, fetchCelokById } = useAuthContext();
   useEffect(() => {
-    getCelok();
+    fetchCelokById(user.id);
   }, []);
   
   return (
@@ -16,27 +16,15 @@ const Tanar = () => {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Név</th>
             <th>Pontszám</th>
-            <th>Állapot</th>
             <th>Teljesítve</th>
-            <th>Dokumentum</th>
           </tr>
         </thead>
         <tbody>
           {celok.map((cel) => (
             <tr key={cel.id}>
-              <td>{cel.name}</td>
               <td>{cel.score}</td>
-              <td>{cel.status === 1 ? "Teljesítve" : "Folyamatban"}</td>
               <td>{cel.completed || "-"}</td>
-              <td>
-                {cel.document ? (
-                  <a href={cel.document} className="text-primary" target="_blank" rel="noopener noreferrer">Megtekintés</a>
-                ) : (
-                  "-"
-                )}
-              </td>
             </tr>
           ))}
         </tbody>
