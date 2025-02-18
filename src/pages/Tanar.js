@@ -16,6 +16,8 @@ const Tanar = () => {
       <Table striped bordered hover>
         <thead>
           <tr>
+            <th>Tanár</th>
+            <th>Szempont</th>
             <th>Pontszám</th>
             <th>Teljesítve</th>
           </tr>
@@ -23,6 +25,8 @@ const Tanar = () => {
         <tbody>
           {celok.map((cel) => (
             <tr key={cel.id}>
+              <td>{cel.teacher_name}</td>
+              <td>{cel.aspect_name}</td>
               <td>{cel.score}</td>
               <td>{cel.completed || "-"}</td>
             </tr>
