@@ -8,6 +8,8 @@ export default function Admin() {
   const [nev, setNev] = useState('');
   const [email, setEmail] = useState('');
   const [jogosultsag, setJogosultsag] = useState('');
+  const [uzenet, setUzenet] = useState('');
+  const [betoltes, setBetoltes] = useState(false);
   const { user, logout } = useAuthContext();
 
   useEffect(() => {
@@ -31,25 +33,43 @@ export default function Admin() {
   };
 
   const torles = async (felhasznaloId) => {
+    setBetoltes(true);
     try {
-      await myAxios.delete(`/api/admin/users/${felhasznaloId}`);
+      await myAxios.delete(`/api/deleteUser/${felhasznaloId}`);
       setFelhasznalok(felhasznalok.filter((felhasznalo) => felhasznalo.id !== felhasznaloId));
+      setUzenet('Felhasználó sikeresen törölve.');
     } catch (error) {
       console.error('Hiba a felhasználó törlésekor:', error);
+      setUzenet('Hiba történt a felhasználó törlésekor.');
+    } finally {
+      setBetoltes(false);
     }
   };
 
   const mentes = async () => {
+    if (!nev || !email || !jogosultsag) {
+      setUzenet('Kérjük, töltse ki az összes mezőt.');
+      return;
+    }
+    setBetoltes(true);
     try {
-      await myAxios.put(`/api/admin/users/${szerkesztettFelhasznalo.id}`, {
+      await myAxios.put(`/api/updateUser/${szerkesztettFelhasznalo.id}`, {
         name: nev,
         email: email,
         role: jogosultsag,
       });
-      setFelhasznalok(felhasznalok.map((felhasznalo) => (felhasznalo.id === szerkesztettFelhasznalo.id ? { ...felhasznalo, name: nev, email: email, role: jogosultsag } : felhasznalo)));
+      setFelhasznalok(felhasznalok.map((felhasznalo) => 
+        felhasznalo.id === szerkesztettFelhasznalo.id 
+          ? { ...felhasznalo, name: nev, email: email, role: jogosultsag } 
+          : felhasznalo
+      ));
       setSzerkesztettFelhasznalo(null);
+      setUzenet('Felhasználó sikeresen frissítve.');
     } catch (error) {
       console.error('Hiba a felhasználó szerkesztésekor:', error);
+      setUzenet('Hiba történt a felhasználó szerkesztésekor.');
+    } finally {
+      setBetoltes(false);
     }
   };
 
@@ -57,6 +77,7 @@ export default function Admin() {
     <div className="container">
       <h1>Admin Felület</h1>
       <p>Üdvözöljük az admin felületen!</p>
+      {uzenet && <div className="alert alert-info">{uzenet}</div>}
       <h2>Felhasználók</h2>
       <table className="table">
         <thead>
@@ -77,7 +98,7 @@ export default function Admin() {
               <td>{felhasznalo.role}</td>
               <td>
                 <button className="btn btn-warning" onClick={() => szerkesztes(felhasznalo)}>Szerkesztés</button>
-                <button className="btn btn-danger" onClick={() => torles(felhasznalo.id)}>Törlés</button>
+                <button className="btn btn-danger" onClick={() => torles(felhasznalo.id)} disabled={betoltes}>Törlés</button>
               </td>
             </tr>
           ))}
@@ -102,11 +123,10 @@ export default function Admin() {
               <option value="3">Tér Felelős</option>
             </select>
           </label>
-          <button className="btn btn-primary" onClick={mentes}>Mentés</button>
-          <button className="btn btn-secondary" onClick={() => setSzerkesztettFelhasznalo(null)}>Mégse</button>
+          <button className="btn btn-primary" onClick={mentes} disabled={betoltes}>Mentés</button>
+          <button className="btn btn-secondary" onClick={() => setSzerkesztettFelhasznalo(null)} disabled={betoltes}>Mégse</button>
         </div>
       )}
-      
     </div>
   );
 }
