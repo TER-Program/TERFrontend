@@ -134,8 +134,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const feltoltes = async (tanar)  => {
+    try {
+        await myAxios.post(`/api/performace_goals_fill/${tanar}`,{});
+        window.location.reload();
+      } catch (error) {
+        console.error('Hiba a felhasználó szerkesztésekor!')
+      }
+    }
+
   return (
-    <AuthContext.Provider value={{ fetchPontszam, tanarPont, regisztracio, logout, user, getUser, login, fetchCelok, celok, fetchPedagogusok, pedagogusok, fetchSzempontok, szempontok, postCel, fetchCelokById, postDokumentum }}>
+    <AuthContext.Provider value={{ fetchPontszam, tanarPont, regisztracio, logout, user, getUser, login, fetchCelok, celok, fetchPedagogusok, pedagogusok, fetchSzempontok, szempontok, postCel, fetchCelokById, postDokumentum, feltoltes }}>
       {children}
     </AuthContext.Provider>
   );
