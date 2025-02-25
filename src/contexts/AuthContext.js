@@ -6,22 +6,26 @@ export const AuthContext = createContext("");
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [celok, setCelok] = useState([]);
   const [pedagogusok, setPedagogusok] = useState([]);
   const [szempontok, setszempontok] = useState([]);
   const [tanarPont, setTanarPont] = useState([]);
+  const [felhasznalok, setFelhasznalok] = useState([]);
+  const [szerkesztettFelhasznalo, setSzerkesztettFelhasznalo] = useState(null);
+  const [uzenet, setUzenet] = useState('');
+  const [betoltes, setBetoltes] = useState(false);
 
   const csrf = async () => {
     await myAxios.get("/sanctum/csrf-cookie");
   };
+
   useEffect(() => {
     if (!user) {
-      getUser()
-
+      getUser();
     }
   }, []);
-
 
   const regisztracio = async (adat) => {
     await csrf();
@@ -34,6 +38,7 @@ export const AuthProvider = ({ children }) => {
       console.error("Regisztrációs hiba:", error);
     }
   };
+
   const login = async (adat) => {
     await csrf();
     try {
@@ -70,15 +75,17 @@ export const AuthProvider = ({ children }) => {
   };
 
   const getUser = async () => {
+    setLoading(true);
     try {
       const { data } = await myAxios.get("/api/user");
       setUser(data);
-      console.log(data)
+      console.log(data);
     } catch (error) {
       console.error("Felhasználó lekérdezési hiba:", error);
+    } finally {
+      setLoading(false);
     }
   };
-
 
   const fetchCelok = async () => {
     try {
@@ -134,6 +141,60 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const fetchFelhasznalok = async () => {
+    try {
+      const response = await myAxios.get('/api/admin/users');
+      setFelhasznalok(response.data);
+    } catch (error) {
+      console.error('Hiba a felhasználók lekérdezésekor:', error);
+    }
+  };
+
+  const szerkesztes = (felhasznalo) => {
+    setSzerkesztettFelhasznalo(felhasznalo);
+  };
+
+  const torles = async (felhasznaloId) => {
+    setBetoltes(true);
+    try {
+      await myAxios.delete(`/api/deleteUser/${felhasznaloId}`);
+      setFelhasznalok(felhasznalok.filter((felhasznalo) => felhasznalo.id !== felhasznaloId));
+      setUzenet('Felhasználó sikeresen törölve.');
+    } catch (error) {
+      console.error('Hiba a felhasználó törlésekor:', error);
+      setUzenet('Hiba történt a felhasználó törlésekor.');
+    } finally {
+      setBetoltes(false);
+    }
+  };
+
+  const mentes = async (nev, email, jogosultsag) => {
+    if (!nev || !email || !jogosultsag) {
+      setUzenet('Kérjük, töltse ki az összes mezőt.');
+      return;
+    }
+    setBetoltes(true);
+    try {
+      await myAxios.put(`/api/updateUser/${szerkesztettFelhasznalo.id}`, {
+        name: nev,
+        email: email,
+        role: jogosultsag,
+      });
+      setFelhasznalok(felhasznalok.map((felhasznalo) => 
+        felhasznalo.id === szerkesztettFelhasznalo.id 
+          ? { ...felhasznalo, name: nev, email: email, role: jogosultsag } 
+          : felhasznalo
+      ));
+      setSzerkesztettFelhasznalo(null);
+      setUzenet('Felhasználó sikeresen frissítve.');
+    } catch (error) {
+      console.error('Hiba a felhasználó szerkesztésekor:', error);
+      setUzenet('Hiba történt a felhasználó szerkesztésekor.');
+    } finally {
+      setBetoltes(false);
+    }
+  };
+
   const feltoltes = async (tanar)  => {
     try {
         await myAxios.post(`/api/performace_goals_fill/${tanar}`,{});
@@ -144,12 +205,11 @@ export const AuthProvider = ({ children }) => {
     }
 
   return (
-    <AuthContext.Provider value={{ fetchPontszam, tanarPont, regisztracio, logout, user, getUser, login, fetchCelok, celok, fetchPedagogusok, pedagogusok, fetchSzempontok, szempontok, postCel, fetchCelokById, postDokumentum, feltoltes }}>
+    <AuthContext.Provider value={{ fetchPontszam, tanarPont, regisztracio, logout, user, getUser, login, fetchCelok, celok, fetchPedagogusok, pedagogusok, fetchSzempontok, szempontok, postCel, fetchCelokById, postDokumentum, feltoltes, loading, fetchFelhasznalok, felhasznalok, szerkesztes, torles, mentes, szerkesztettFelhasznalo, setSzerkesztettFelhasznalo, uzenet, betoltes }}>
       {children}
     </AuthContext.Provider>
   );
 };
-
 
 export const useAuthContext = () => {
   return useContext(AuthContext);

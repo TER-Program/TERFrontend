@@ -1,77 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { myAxios } from '../contexts/MyAxios';
 import { useAuthContext } from '../contexts/AuthContext';
 
 export default function Admin() {
-  const [felhasznalok, setFelhasznalok] = useState([]);
-  const [szerkesztettFelhasznalo, setSzerkesztettFelhasznalo] = useState(null);
+  const { fetchFelhasznalok, felhasznalok, szerkesztes, torles, mentes, szerkesztettFelhasznalo, setSzerkesztettFelhasznalo, uzenet, betoltes } = useAuthContext();
   const [nev, setNev] = useState('');
   const [email, setEmail] = useState('');
   const [jogosultsag, setJogosultsag] = useState('');
-  const [uzenet, setUzenet] = useState('');
-  const [betoltes, setBetoltes] = useState(false);
-  const { user, logout } = useAuthContext();
 
   useEffect(() => {
-    const felhasznalokLekerdezese = async () => {
-      try {
-        const response = await myAxios.get('/api/admin/users');
-        setFelhasznalok(response.data);
-      } catch (error) {
-        console.error('Hiba a felhasználók lekérdezésekor:', error);
-      }
-    };
-
-    felhasznalokLekerdezese();
+    fetchFelhasznalok();
   }, []);
 
-  const szerkesztes = (felhasznalo) => {
-    setSzerkesztettFelhasznalo(felhasznalo);
-    setNev(felhasznalo.name);
-    setEmail(felhasznalo.email);
-    setJogosultsag(felhasznalo.role);
-  };
-
-  const torles = async (felhasznaloId) => {
-    setBetoltes(true);
-    try {
-      await myAxios.delete(`/api/deleteUser/${felhasznaloId}`);
-      setFelhasznalok(felhasznalok.filter((felhasznalo) => felhasznalo.id !== felhasznaloId));
-      setUzenet('Felhasználó sikeresen törölve.');
-    } catch (error) {
-      console.error('Hiba a felhasználó törlésekor:', error);
-      setUzenet('Hiba történt a felhasználó törlésekor.');
-    } finally {
-      setBetoltes(false);
+  useEffect(() => {
+    if (szerkesztettFelhasznalo) {
+      setNev(szerkesztettFelhasznalo.name);
+      setEmail(szerkesztettFelhasznalo.email);
+      setJogosultsag(szerkesztettFelhasznalo.role);
     }
-  };
-
-  const mentes = async () => {
-    if (!nev || !email || !jogosultsag) {
-      setUzenet('Kérjük, töltse ki az összes mezőt.');
-      return;
-    }
-    setBetoltes(true);
-    try {
-      await myAxios.put(`/api/updateUser/${szerkesztettFelhasznalo.id}`, {
-        name: nev,
-        email: email,
-        role: jogosultsag,
-      });
-      setFelhasznalok(felhasznalok.map((felhasznalo) => 
-        felhasznalo.id === szerkesztettFelhasznalo.id 
-          ? { ...felhasznalo, name: nev, email: email, role: jogosultsag } 
-          : felhasznalo
-      ));
-      setSzerkesztettFelhasznalo(null);
-      setUzenet('Felhasználó sikeresen frissítve.');
-    } catch (error) {
-      console.error('Hiba a felhasználó szerkesztésekor:', error);
-      setUzenet('Hiba történt a felhasználó szerkesztésekor.');
-    } finally {
-      setBetoltes(false);
-    }
-  };
+  }, [szerkesztettFelhasznalo]);
 
   return (
     <div className="container">
@@ -123,7 +69,7 @@ export default function Admin() {
               <option value="3">Tér Felelős</option>
             </select>
           </label>
-          <button className="btn btn-primary" onClick={mentes} disabled={betoltes}>Mentés</button>
+          <button className="btn btn-primary" onClick={() => mentes(nev, email, jogosultsag)} disabled={betoltes}>Mentés</button>
           <button className="btn btn-secondary" onClick={() => setSzerkesztettFelhasznalo(null)} disabled={betoltes}>Mégse</button>
         </div>
       )}
