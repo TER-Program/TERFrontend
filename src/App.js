@@ -32,6 +32,7 @@ function App() {
                     {user.role === 0 && (
                         <Route element={<AdminLayout />}>
                             <Route path="/" element={<Admin />} />
+                            <Route path="Tanarok" element={<Tanarok />} />
                         </Route>
                     )}
                     {user.role === 2 && (
