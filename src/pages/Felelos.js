@@ -29,7 +29,7 @@ function Felelos() {
                 <tr key={cel.id}>
                   <td>{cel.teacher_name}</td>
                   <td>{cel.aspect_name}</td>
-                  <td><input className='pontszam' type="number"></input></td>
+                  <td className='pontszam'><input type="number" min={0} max={cel.max_score}></input></td>
                   <td>{cel.max_score}</td>
                   <td>Dokumentumok</td>
                   <td><button>Pontozás</button></td>

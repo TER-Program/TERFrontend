@@ -178,3 +178,7 @@ nav ul li a:hover {
 .me-2 {
   margin-right: 10px;
 }
+.pontszam input{
+  max-width: 75px;
+  float:right ;
+}

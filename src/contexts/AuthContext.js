@@ -134,6 +134,15 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const patchPontozas = async (id, score, evaluator) => {
+    try {
+      await myAxios.patch(`/score/${id}/${score}/${evaluator}`);
+      console.log("Siker!");
+    } catch (error) {
+      console.error("Feltöltési hiba:", error);
+    }
+  };
+
   const fetchPontszam = async () => {
     try {
       const response = await myAxios.get(`/api/scorebyteacher`);
