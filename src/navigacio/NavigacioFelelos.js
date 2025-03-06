@@ -11,7 +11,7 @@ export default function NavigacioFelelos() {
                 <ul className="navbar-nav">
                     <li className="navbar-item">
                         <Link className="nav-link" to="/">
-                            Kezdőlap Felelős
+                            Pontozás
                         </Link>
                     </li>
                     <li className="navbar-item">

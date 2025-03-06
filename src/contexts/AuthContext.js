@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    fetchCelok()
     if (!user) {
       getUser();
     }
@@ -48,6 +49,7 @@ export const AuthProvider = ({ children }) => {
       navigate("/");
     } catch (error) {
       console.error("Bejelentkezési hiba:", error);
+      alert("Hibás bejelentkezési adatok!");
     }
   };
 

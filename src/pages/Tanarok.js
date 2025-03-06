@@ -50,7 +50,8 @@ function Tanarok() {
                                     </td>
                                 ) : user.role === 0 && (
                                     <td>Feltöltve</td>
-                                )}
+                                ) 
+                             }
                             </tr>
                         ))}
                     </tbody>
