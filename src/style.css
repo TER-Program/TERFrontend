@@ -25,6 +25,11 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0.8);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.02);
 }
 
 .card h2, .card h3 {
@@ -52,6 +57,10 @@ body {
   background-color: #f2f2f2;
 }
 
+.table tr:hover {
+  background-color: #e9ecef;
+}
+
 .form-group {
   margin-bottom: 15px;
 }
@@ -69,6 +78,7 @@ body {
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .btn-primary {
@@ -79,6 +89,7 @@ body {
 
 .btn-primary:hover {
   background-color: #0056b3;
+  transform: translateY(-2px);
 }
 
 .btn-secondary {
@@ -89,6 +100,7 @@ body {
 
 .btn-secondary:hover {
   background-color: #5a6268;
+  transform: translateY(-2px);
 }
 
 .btn-warning {
@@ -99,6 +111,7 @@ body {
 
 .btn-warning:hover {
   background-color: #e0a800;
+  transform: translateY(-2px);
 }
 
 .btn-success {
@@ -109,6 +122,7 @@ body {
 
 .btn-success:hover {
   background-color: #218838;
+  transform: translateY(-2px);
 }
 
 h1 {
@@ -178,7 +192,30 @@ nav ul li a:hover {
 .me-2 {
   margin-right: 10px;
 }
-.pontszam input{
+
+.pontszam input {
   max-width: 75px;
-  float:right ;
+  float: right;
+}
+
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 90%;
+    margin: 20px auto;
+  }
+
+  .card {
+    max-width: 100%;
+    margin: 10px auto;
+  }
+
+  .table th, .table td {
+    padding: 8px;
+  }
+
+  .btn {
+    width: 100%;
+    margin-bottom: 5px;
+  }
 }
