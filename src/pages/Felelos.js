@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Card } from 'react-bootstrap';
 import { useAuthContext } from '../contexts/AuthContext';
+import PontozasSor from './PontozasSor';
 
 function Felelos() {
 
-  const { celok } = useAuthContext();
-
+  const { celok, patchPontozas, user } = useAuthContext();
   const unscoredCelok = celok.filter((cel) => cel.scored === null);
-
   return (
     <div>
       <h1>Pontozás</h1>
@@ -25,15 +24,8 @@ function Felelos() {
               </tr>
             </thead>
             <tbody>
-              {unscoredCelok.map((cel) => (
-                <tr key={cel.id}>
-                  <td>{cel.teacher_name}</td>
-                  <td>{cel.aspect_name}</td>
-                  <td className='pontszam'><input type="number" min={0} max={cel.max_score}></input></td>
-                  <td>{cel.max_score}</td>
-                  <td>Dokumentumok</td>
-                  <td><button>Pontozás</button></td>
-                </tr>
+              {unscoredCelok.map((cel, index) => (
+                <PontozasSor cel={cel} key={index} />
               ))}
 
             </tbody>

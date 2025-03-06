@@ -20,7 +20,7 @@ const Tanar = () => {
             <th>Tanár</th>
             <th>Szempont</th>
             <th>Pontszám</th>
-            <th>Teljesítve</th>
+            <th>Pontozva</th>
             <th>Szöveg és Közzététel</th>
           </tr>
         </thead>

@@ -136,8 +136,9 @@ export const AuthProvider = ({ children }) => {
 
   const patchPontozas = async (id, score, evaluator) => {
     try {
-      await myAxios.patch(`/score/${id}/${score}/${evaluator}`);
+      await myAxios.patch(`/api/score/${id}/${score}/${evaluator}`);
       console.log("Siker!");
+      window.location.reload();
     } catch (error) {
       console.error("Feltöltési hiba:", error);
     }
@@ -216,7 +217,7 @@ export const AuthProvider = ({ children }) => {
     }
 
   return (
-    <AuthContext.Provider value={{ fetchPontszam, tanarPont, regisztracio, logout, user, getUser, login, fetchCelok, celok, fetchPedagogusok, pedagogusok, fetchSzempontok, szempontok, postCel, fetchCelokById, postDokumentum, feltoltes, loading, fetchFelhasznalok, felhasznalok, szerkesztes, torles, mentes, szerkesztettFelhasznalo, setSzerkesztettFelhasznalo, uzenet, betoltes }}>
+    <AuthContext.Provider value={{ fetchPontszam, tanarPont, regisztracio, logout, user, getUser, login, fetchCelok, celok, fetchPedagogusok, pedagogusok, fetchSzempontok, szempontok, postCel, fetchCelokById, postDokumentum, feltoltes, loading, fetchFelhasznalok, felhasznalok, szerkesztes, torles, mentes, szerkesztettFelhasznalo, setSzerkesztettFelhasznalo, uzenet, betoltes, patchPontozas }}>
       {children}
     </AuthContext.Provider>
   );
