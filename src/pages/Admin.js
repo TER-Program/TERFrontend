@@ -6,6 +6,7 @@ export default function Admin() {
   const [nev, setNev] = useState('');
   const [email, setEmail] = useState('');
   const [jogosultsag, setJogosultsag] = useState('');
+  const [searchTerm, setSearchTerm] = useState(''); // Új állapot a keresési kifejezéshez
 
   useEffect(() => {
     fetchFelhasznalok();
@@ -19,12 +20,28 @@ export default function Admin() {
     }
   }, [szerkesztettFelhasznalo]);
 
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredFelhasznalok = felhasznalok.filter(felhasznalo =>
+    felhasznalo.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    felhasznalo.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="container">
       <h1>Admin Felület</h1>
       <p>Üdvözöljük az admin felületen!</p>
       {uzenet && <div className="alert alert-info">{uzenet}</div>}
       <h2>Felhasználók</h2>
+      <input 
+        type="text" 
+        placeholder="Keresés név vagy email alapján..." 
+        value={searchTerm} 
+        onChange={handleSearch} 
+        className="form-control mb-3"
+      />
       <table className="table">
         <thead>
           <tr>
@@ -36,7 +53,7 @@ export default function Admin() {
           </tr>
         </thead>
         <tbody>
-          {felhasznalok.map((felhasznalo) => (
+          {filteredFelhasznalok.map((felhasznalo) => (
             <tr key={felhasznalo.id}>
               <td>{felhasznalo.id}</td>
               <td>{felhasznalo.name}</td>
