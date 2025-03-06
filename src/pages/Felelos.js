@@ -3,14 +3,10 @@ import { Table, Card } from 'react-bootstrap';
 import { useAuthContext } from '../contexts/AuthContext';
 
 function Felelos() {
-  const [openRow, setOpenRow] = useState(null);
+
   const { celok } = useAuthContext();
 
-  // Filter only those goals that have not been scored yet (scored is null)
   const unscoredCelok = celok.filter((cel) => cel.scored === null);
-  const toggleRow = (id) => {
-    setOpenRow(openRow === id ? null : id);
-  };
 
   return (
     <div>
@@ -25,6 +21,7 @@ function Felelos() {
                 <th>Pontszám</th>
                 <th>Maximális pontszám</th>
                 <th>Dokumentumok</th>
+                <th>Pontozás</th>
               </tr>
             </thead>
             <tbody>
@@ -32,13 +29,13 @@ function Felelos() {
                 <tr key={cel.id}>
                   <td>{cel.teacher_name}</td>
                   <td>{cel.aspect_name}</td>
-                  <td>{cel.score}</td>
+                  <td><input className='pontszam' type="number"></input></td>
                   <td>{cel.max_score}</td>
+                  <td>Dokumentumok</td>
+                  <td><button>Pontozás</button></td>
                 </tr>
               ))}
-              {openRow === celok.id && (
-                <p>Igen</p>
-                )}
+
             </tbody>
           </Table>
         </Card.Body>

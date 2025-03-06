@@ -6,6 +6,9 @@
   height: 40vmin;
   pointer-events: none;
 }
+.pontszam{
+  width: 10px;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
