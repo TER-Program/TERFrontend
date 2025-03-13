@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [pedagogusok, setPedagogusok] = useState([]);
   const [szempontok, setszempontok] = useState([]);
   const [tanarPont, setTanarPont] = useState([]);
+  const [dokumentum, setDokumentum] = useState([]);
   const [felhasznalok, setFelhasznalok] = useState([]);
   const [szerkesztettFelhasznalo, setSzerkesztettFelhasznalo] = useState(null);
   const [uzenet, setUzenet] = useState("");
@@ -125,6 +126,15 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const fetchDokumentumokById = async (userId) => {
+    try {
+      const response = await myAxios.get(`/api/documentbyid/${userId}`);
+      setCelok(response.data);
+    } catch (error) {
+      console.error("Hiba a célok lekérdezésekor:", error);
+    }
+  };
+
   const postDokumentum = async (adat) => {
     try {
       await myAxios.post("/api/newDocument", adat);
@@ -152,6 +162,8 @@ export const AuthProvider = ({ children }) => {
       console.error("Hiba a célok lekérdezésekor:", error);
     }
   };
+
+
 
   const fetchFelhasznalok = async () => {
     try {
@@ -234,6 +246,8 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
+        fetchDokumentumokById,
+        dokumentum,
         fetchPontszam,
         tanarPont,
         regisztracio,

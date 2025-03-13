@@ -12,6 +12,7 @@ import Admin from './pages/Admin';
 import Tanar from './pages/Tanar';
 import Felelos from './pages/Felelos';
 import Tanarok from './pages/Tanarok';
+import Dokumentumok from './pages/Dokumentumok';
 
 function App() {
     const { user } = useAuthContext();
@@ -38,6 +39,7 @@ function App() {
                     {user.role === 2 && (
                         <Route element={<TanarLayout />}>
                             <Route path="/" element={<Tanar />} />
+                            <Route path="Dokumentumok" element={<Dokumentumok />} />
                         </Route>
                     )}
                     {user.role === 1 && (

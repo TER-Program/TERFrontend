@@ -5,7 +5,7 @@ import PontozasSor from './PontozasSor';
 
 function Felelos() {
 
-  const { celok, patchPontozas, user } = useAuthContext();
+  const { celok} = useAuthContext();
   const unscoredCelok = celok.filter((cel) => cel.scored === null);
   return (
     <div>
