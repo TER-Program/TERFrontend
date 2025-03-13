@@ -14,10 +14,11 @@ body {
   max-width: 400px;
   margin: 50px auto;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(99, 235, 253, 0.8);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
+
 
 .card {
   margin: 20px auto;
@@ -54,7 +55,7 @@ body {
 }
 
 .table tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #ffffff;
 }
 
 .table tr:hover {
@@ -219,3 +220,81 @@ nav ul li a:hover {
     margin-bottom: 5px;
   }
 }
+
+.table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.table th, .table td {
+  padding: 15px;
+  border: 1px solid #0e8f88;
+  list-style-type: circle;
+  text-align: left;
+  lighting-color: #0bceff;
+}
+
+.table th {
+  background-color: #4CAF50; 
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table tr:nth-child(odd) {
+  background-color: #e6f7ff; 
+}
+
+
+.table tr:hover {
+  background-color: #d1ecf1;
+  cursor: pointer;
+}
+
+.table td {
+  transition: background-color 0.3s;
+}
+
+.table td:hover {
+  background-color: #8dfff9;
+}
+
+.table .btn {
+  border-radius: 4px;
+  padding: 5px 10px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.table .btn-warning {
+  background-color: #ff9800;
+  color: white;
+  border: none;
+}
+
+.table .btn-warning:hover {
+  background-color: #e68900;
+  transform: translateY(-2px);
+}
+
+.table .btn-danger {
+  background-color: #0bceff; 
+  color: rgb(0, 0, 0);
+  border: none;
+}
+
+.table .btn-danger:hover {
+  background-color: #d3502f;
+  transform: translateY(-2px);
+}
+
+p{
+  color: #000000;
+}
+
