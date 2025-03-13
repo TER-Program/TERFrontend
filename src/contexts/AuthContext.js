@@ -1,6 +1,6 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { myAxios } from './MyAxios';
+import React, { createContext, useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { myAxios } from "./MyAxios";
 
 export const AuthContext = createContext("");
 
@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   const [tanarPont, setTanarPont] = useState([]);
   const [felhasznalok, setFelhasznalok] = useState([]);
   const [szerkesztettFelhasznalo, setSzerkesztettFelhasznalo] = useState(null);
-  const [uzenet, setUzenet] = useState('');
+  const [uzenet, setUzenet] = useState("");
   const [betoltes, setBetoltes] = useState(false);
 
   const csrf = async () => {
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchCelok()
+    fetchCelok();
     if (!user) {
       getUser();
     }
@@ -91,28 +91,28 @@ export const AuthProvider = ({ children }) => {
 
   const fetchCelok = async () => {
     try {
-      const response = await myAxios.get('/api/performanceGoals');
+      const response = await myAxios.get("/api/performanceGoals");
       setCelok(response.data);
     } catch (error) {
-      console.error('Hiba a célok lekérdezésekor:', error);
+      console.error("Hiba a célok lekérdezésekor:", error);
     }
   };
 
   const fetchSzempontok = async () => {
     try {
-      const response = await myAxios.get('/api/aspectItem');
+      const response = await myAxios.get("/api/aspectItem");
       setszempontok(response.data);
     } catch (error) {
-      console.error('Hiba a szempontok lekérdezésekor:', error);
+      console.error("Hiba a szempontok lekérdezésekor:", error);
     }
   };
 
   const fetchPedagogusok = async () => {
     try {
-      const response = await myAxios.get('/api/teachers');
+      const response = await myAxios.get("/api/teachers");
       setPedagogusok(response.data);
     } catch (error) {
-      console.error('Hiba a pedagógusok lekérdezésekor:', error);
+      console.error("Hiba a pedagógusok lekérdezésekor:", error);
     }
   };
 
@@ -121,7 +121,7 @@ export const AuthProvider = ({ children }) => {
       const response = await myAxios.get(`/api/getGoalsByUserId/${userId}`);
       setCelok(response.data);
     } catch (error) {
-      console.error('Hiba a célok lekérdezésekor:', error);
+      console.error("Hiba a célok lekérdezésekor:", error);
     }
   };
 
@@ -149,16 +149,16 @@ export const AuthProvider = ({ children }) => {
       const response = await myAxios.get(`/api/scorebyteacher`);
       setTanarPont(response.data);
     } catch (error) {
-      console.error('Hiba a célok lekérdezésekor:', error);
+      console.error("Hiba a célok lekérdezésekor:", error);
     }
   };
 
   const fetchFelhasznalok = async () => {
     try {
-      const response = await myAxios.get('/api/admin/users');
+      const response = await myAxios.get("/api/admin/users");
       setFelhasznalok(response.data);
     } catch (error) {
-      console.error('Hiba a felhasználók lekérdezésekor:', error);
+      console.error("Hiba a felhasználók lekérdezésekor:", error);
     }
   };
 
@@ -170,11 +170,13 @@ export const AuthProvider = ({ children }) => {
     setBetoltes(true);
     try {
       await myAxios.delete(`/api/deleteUser/${felhasznaloId}`);
-      setFelhasznalok(felhasznalok.filter((felhasznalo) => felhasznalo.id !== felhasznaloId));
-      setUzenet('Felhasználó sikeresen törölve.');
+      setFelhasznalok(
+        felhasznalok.filter((felhasznalo) => felhasznalo.id !== felhasznaloId)
+      );
+      setUzenet("Felhasználó sikeresen törölve.");
     } catch (error) {
-      console.error('Hiba a felhasználó törlésekor:', error);
-      setUzenet('Hiba történt a felhasználó törlésekor.');
+      console.error("Hiba a felhasználó törlésekor:", error);
+      setUzenet("Hiba történt a felhasználó törlésekor.");
     } finally {
       setBetoltes(false);
     }
@@ -182,7 +184,7 @@ export const AuthProvider = ({ children }) => {
 
   const mentes = async (nev, email, jogosultsag) => {
     if (!nev || !email || !jogosultsag) {
-      setUzenet('Kérjük, töltse ki az összes mezőt.');
+      setUzenet("Kérjük, töltse ki az összes mezőt.");
       return;
     }
     setBetoltes(true);
@@ -192,32 +194,77 @@ export const AuthProvider = ({ children }) => {
         email: email,
         role: jogosultsag,
       });
-      setFelhasznalok(felhasznalok.map((felhasznalo) => 
-        felhasznalo.id === szerkesztettFelhasznalo.id 
-          ? { ...felhasznalo, name: nev, email: email, role: jogosultsag } 
-          : felhasznalo
-      ));
+      setFelhasznalok(
+        felhasznalok.map((felhasznalo) =>
+          felhasznalo.id === szerkesztettFelhasznalo.id
+            ? { ...felhasznalo, name: nev, email: email, role: jogosultsag }
+            : felhasznalo
+        )
+      );
       setSzerkesztettFelhasznalo(null);
-      setUzenet('Felhasználó sikeresen frissítve.');
+      setUzenet("Felhasználó sikeresen frissítve.");
     } catch (error) {
-      console.error('Hiba a felhasználó szerkesztésekor:', error);
-      setUzenet('Hiba történt a felhasználó szerkesztésekor.');
+      console.error("Hiba a felhasználó szerkesztésekor:", error);
+      setUzenet("Hiba történt a felhasználó szerkesztésekor.");
     } finally {
       setBetoltes(false);
     }
   };
 
-  const feltoltes = async (tanar)  => {
+  const feltoltes = async (tanar) => {
     try {
-        await myAxios.post(`/api/performace_goals_fill/${tanar}`,{});
-        window.location.reload();
-      } catch (error) {
-        console.error('Hiba a felhasználó szerkesztésekor!')
-      }
+      await myAxios.post(`/api/performace_goals_fill/${tanar}`, {});
+      window.location.reload();
+    } catch (error) {
+      console.error("Hiba a felhasználó szerkesztésekor!");
     }
+  };
+
+  const uploadPdf = async (adat, vegpont) => {
+    try {
+        await myAxios.post(vegpont, adat) // FormData-t küldjük el
+            .then((resp) => {
+                console.log("Response:", resp);
+            });
+    } catch (error) {
+        console.log("Upload error:", error);
+    }
+};
 
   return (
-    <AuthContext.Provider value={{ fetchPontszam, tanarPont, regisztracio, logout, user, getUser, login, fetchCelok, celok, fetchPedagogusok, pedagogusok, fetchSzempontok, szempontok, postCel, fetchCelokById, postDokumentum, feltoltes, loading, fetchFelhasznalok, felhasznalok, szerkesztes, torles, mentes, szerkesztettFelhasznalo, setSzerkesztettFelhasznalo, uzenet, betoltes, patchPontozas }}>
+    <AuthContext.Provider
+      value={{
+        fetchPontszam,
+        tanarPont,
+        regisztracio,
+        logout,
+        user,
+        getUser,
+        login,
+        fetchCelok,
+        celok,
+        fetchPedagogusok,
+        pedagogusok,
+        fetchSzempontok,
+        szempontok,
+        postCel,
+        fetchCelokById,
+        postDokumentum,
+        feltoltes,
+        loading,
+        fetchFelhasznalok,
+        felhasznalok,
+        szerkesztes,
+        torles,
+        mentes,
+        szerkesztettFelhasznalo,
+        setSzerkesztettFelhasznalo,
+        uzenet,
+        betoltes,
+        patchPontozas,
+        uploadPdf,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

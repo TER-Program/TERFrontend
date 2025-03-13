@@ -8,7 +8,7 @@ const Tanar = () => {
 
   useEffect(() => {
     fetchCelokById(user.id);
-
+    console.log(celok)
   }, []);
 
   return (
@@ -21,7 +21,7 @@ const Tanar = () => {
             <th>Szempont</th>
             <th>Pontszám</th>
             <th>Pontozva</th>
-            <th>Szöveg és Közzététel</th>
+            <th>Dokumentum</th>
           </tr>
         </thead>
         <tbody>

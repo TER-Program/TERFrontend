@@ -16,7 +16,7 @@ function Felelos() {
             <thead>
               <tr>
                 <th>Tanár neve</th>
-                <th>Aspektus neve</th>
+                <th>Szempont neve</th>
                 <th>Pontszám</th>
                 <th>Maximális pontszám</th>
                 <th>Dokumentumok</th>
