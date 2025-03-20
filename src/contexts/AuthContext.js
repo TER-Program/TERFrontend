@@ -129,7 +129,7 @@ export const AuthProvider = ({ children }) => {
   const fetchDokumentumokById = async (userId) => {
     try {
       const response = await myAxios.get(`/api/documentbyid/${userId}`);
-      setCelok(response.data);
+      setDokumentum(response.data);
     } catch (error) {
       console.error("Hiba a célok lekérdezésekor:", error);
     }

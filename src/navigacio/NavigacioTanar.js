@@ -17,7 +17,7 @@ export default function Navigaciotanar() {
 
                     <li className="navbar-item">
                         <Link className="nav-link" to="Dokumentumok">
-                            Dokumentumok
+                            Dokumentumok    
                         </Link>
                     </li>
 

@@ -14,33 +14,27 @@ const CelSor = ({ cel }) => {
   function handleSubmit(event) {
     event.preventDefault();
 
-    // Ellenőrizzük, hogy a fájl létezik-e
     if (!documentFile) {
         alert("Kérjük, válasszon egy PDF fájlt!");
         return;
     }
 
-    // Ellenőrizd, hogy a fájl valóban PDF-e
     if (documentFile.type !== "application/pdf") {
         alert("Csak PDF fájlok tölthetők fel!");
         return;
     }
 
-    // Ellenőrizzük, hogy a performanceGoal ID meg van-e adva
     if (!performanceGoal) {
         alert("A performance goal mező kitöltése kötelező!");
         return;
     }
 
-    // FormData létrehozása
     const formData = new FormData();
-    formData.append("pdf", documentFile); // A fájl hozzáadása
-    formData.append("performanceGoal", performanceGoal); // A performanceGoal ID hozzáadása
+    formData.append("pdf", documentFile);
+    formData.append("performanceGoal", performanceGoal);
 
-    // Ellenőrizzük, hogy a FormData tartalmazza-e a megfelelő adatokat
     console.log("FormData:", formData);
 
-    // Feltöltés
     uploadPdf(formData, "/api/upload-pdf")
         .then((response) => {
             console.log("Upload successful", response);
@@ -86,8 +80,8 @@ const CelSor = ({ cel }) => {
                 <Form.Control
                   type="file"
                   onChange={(e) => {
-                    setDocumentFile(e.target.files[0]); // A fájl beállítása
-                    setPerformanceGoal(cel.id); // A performanceGoal ID beállítása
+                    setDocumentFile(e.target.files[0]);
+                    setPerformanceGoal(cel.id);
                   }}
                 />
               </Form.Group>
