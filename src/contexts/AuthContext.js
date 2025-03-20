@@ -177,6 +177,16 @@ export const AuthProvider = ({ children }) => {
     setSzerkesztettFelhasznalo(felhasznalo);
   };
 
+  const dokumentumTorles = async (dokumentum) => {
+    setBetoltes(true);
+    try {
+      await myAxios.delete(`/api/deletedocument/${dokumentum}`);
+      window.location.reload();
+    }catch(error){
+        console.error("Hiba a dokumentum törlésekor")
+    }
+    }
+
   const torles = async (felhasznaloId) => {
     setBetoltes(true);
     try {
@@ -245,6 +255,7 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
+        dokumentumTorles,
         fetchDokumentumokById,
         dokumentum,
         fetchPontszam,

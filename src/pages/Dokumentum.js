@@ -3,11 +3,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useAuthContext } from "../contexts/AuthContext";
 
 function Dokumentum({ doc, index }) {
-  console.log(doc)
-  const {dokumentumLetoltes} = useAuthContext();
+  const {dokumentumLetoltes, dokumentumTorles} = useAuthContext();
   const handleDownload = () => {
     window.location.href = `http://localhost:8000/api/documents/${doc.id}`;
   };
+  const handleTorles = () =>{
+    dokumentumTorles(doc.id);
+    
+  }
   return (
       <tr key={index}>
         <td>{doc.document_name}</td>
@@ -16,6 +19,11 @@ function Dokumentum({ doc, index }) {
         <td>
           <button onClick={handleDownload} className="btn btn-primary btn-sm">
             Megnyitás
+          </button>
+        </td>
+        <td>
+          <button onClick={handleTorles} className="btn btn-primary btn-sm">
+            Törlés
           </button>
         </td>
       </tr>
