@@ -125,7 +125,6 @@ export const AuthProvider = ({ children }) => {
       console.error("Hiba a célok lekérdezésekor:", error);
     }
   };
-
   const fetchDokumentumokById = async (userId) => {
     try {
       const response = await myAxios.get(`/api/documentbyid/${userId}`);

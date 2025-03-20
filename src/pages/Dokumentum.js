@@ -1,14 +1,14 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useAuthContext } from "../contexts/AuthContext";
 
 function Dokumentum({ doc, index }) {
   console.log(doc)
+  const {dokumentumLetoltes} = useAuthContext();
   const handleDownload = () => {
-    // Instead of opening a new tab, trigger a download with window.location.href
-    window.location.href = `/api/documents/${doc.id}`;
+    window.location.href = `http://localhost:8000/api/documents/${doc.id}`;
   };
   return (
-    <div>
       <tr key={index}>
         <td>{doc.document_name}</td>
         <td>{doc.teacher_name}</td>
@@ -19,7 +19,6 @@ function Dokumentum({ doc, index }) {
           </button>
         </td>
       </tr>
-    </div>
   );
 }
 
