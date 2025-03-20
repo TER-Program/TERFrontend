@@ -15,18 +15,18 @@ const CelSor = ({ cel }) => {
     event.preventDefault();
 
     if (!documentFile) {
-        alert("Kérjük, válasszon egy PDF fájlt!");
-        return;
+      alert("Kérjük, válasszon egy PDF fájlt!");
+      return;
     }
 
     if (documentFile.type !== "application/pdf") {
-        alert("Csak PDF fájlok tölthetők fel!");
-        return;
+      alert("Csak PDF fájlok tölthetők fel!");
+      return;
     }
 
     if (!performanceGoal) {
-        alert("A performance goal mező kitöltése kötelező!");
-        return;
+      alert("A performance goal mező kitöltése kötelező!");
+      return;
     }
 
     const formData = new FormData();
@@ -36,20 +36,22 @@ const CelSor = ({ cel }) => {
     console.log("FormData:", formData);
 
     uploadPdf(formData, "/api/upload-pdf")
-        .then((response) => {
-            console.log("Upload successful", response);
-        })
-        .catch((error) => {
-            if (error.response) {
-                console.error("Upload error:", error.response.data);
-                alert("Hiba történt a fájl feltöltése közben. Részletek: " + JSON.stringify(error.response.data.errors));
-            } else {
-                console.error("Error:", error.message);
-                alert("Hiba történt a fájl feltöltése közben.");
-            }
-        });
-}
-
+      .then((response) => {
+        console.log("Upload successful", response);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.error("Upload error:", error.response.data);
+          alert(
+            "Hiba történt a fájl feltöltése közben. Részletek: " +
+              JSON.stringify(error.response.data.errors)
+          );
+        } else {
+          console.error("Error:", error.message);
+          alert("Hiba történt a fájl feltöltése közben.");
+        }
+      });
+  }
 
   return (
     <>
@@ -60,18 +62,23 @@ const CelSor = ({ cel }) => {
         <td>{cel.scored || "-"}</td>
         {cel.doc_required === 1 ? (
           <td className="text-center">
-            <Button
-              variant="link"
-              onClick={() => toggleRow(cel.id)}
-              className="p-0"
-            >
-              {openRow === cel.id ? "▲" : "▼"}
-            </Button>
+            {cel.scored === null ? (
+              <Button
+                variant="link"
+                onClick={() => toggleRow(cel.id)}
+                className="p-0"
+              >
+                {openRow === cel.id ? "▲" : "▼"}
+              </Button>
+            ) : (
+              "Dokumentum feltöltése nem lehetséges"
+            )}
           </td>
         ) : (
           cel.doc_required === 0 && <td>Nem szükséges dokumentum</td>
         )}
       </tr>
+
       {openRow === cel.id && (
         <tr>
           <td colSpan="5">

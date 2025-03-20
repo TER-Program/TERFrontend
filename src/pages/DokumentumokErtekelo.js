@@ -2,14 +2,14 @@ import React, { useEffect } from 'react'
 import { useAuthContext } from '../contexts/AuthContext'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Dokumentum from './Dokumentum';
-function Dokumentumok() {
-  const { fetchDokumentumokById, dokumentumById, user } = useAuthContext();
+function DokumentumokErtekelo() {
+  const { fetchDokumentumok, dokumentumok, user } = useAuthContext();
   useEffect(() => {
-    fetchDokumentumokById(user.id)
+    fetchDokumentumok()
   }, []);
   return (
     <div className="container mt-4">
-      {dokumentumById.length > 0 ? (
+      {dokumentumok.length > 0 ? (
         <table className="table table-striped table-bordered">
           <thead className="thead-dark">
             <tr>
@@ -20,7 +20,7 @@ function Dokumentumok() {
             </tr>
           </thead>
           <tbody>
-            {dokumentumById.map((doc, index) => (
+            {dokumentumok.map((doc, index) => (
               <Dokumentum  key={index} doc={doc} />
             ))}
           </tbody>
@@ -32,4 +32,4 @@ function Dokumentumok() {
   );
 }
 
-export default Dokumentumok
+export default DokumentumokErtekelo

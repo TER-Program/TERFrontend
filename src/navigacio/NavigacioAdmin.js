@@ -22,6 +22,11 @@ export default function NavigacioAdmin() {
                         </Link>
                     </li>
                     <li className="navbar-item">
+                        <Link className="nav-link" to="Dokumentumok">
+                            Dokumentumok
+                        </Link>
+                    </li>
+                    <li className="navbar-item">
                         <button className="nav-link" onClick={() => { logout() }}>
                             Kijelentkezés
                         </button>

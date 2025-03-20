@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useAuthContext } from "../contexts/AuthContext";
 
 function Dokumentum({ doc, index }) {
-  const {dokumentumLetoltes, dokumentumTorles} = useAuthContext();
+  const { dokumentumTorles , user} = useAuthContext();
   const handleDownload = () => {
     window.location.href = `http://localhost:8000/api/documents/${doc.id}`;
   };
@@ -21,11 +21,13 @@ function Dokumentum({ doc, index }) {
             Megnyitás
           </button>
         </td>
-        <td>
+        {user.role === 2 || user.role === 0 && (
+          <td>
           <button onClick={handleTorles} className="btn btn-primary btn-sm">
             Törlés
           </button>
         </td>
+        )} 
       </tr>
   );
 }

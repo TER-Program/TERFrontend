@@ -12,7 +12,8 @@ export const AuthProvider = ({ children }) => {
   const [pedagogusok, setPedagogusok] = useState([]);
   const [szempontok, setszempontok] = useState([]);
   const [tanarPont, setTanarPont] = useState([]);
-  const [dokumentum, setDokumentum] = useState([]);
+  const [dokumentumById, setDokumentumById] = useState([]);
+  const [dokumentumok, setDokumentumok] = useState([]);
   const [felhasznalok, setFelhasznalok] = useState([]);
   const [szerkesztettFelhasznalo, setSzerkesztettFelhasznalo] = useState(null);
   const [uzenet, setUzenet] = useState("");
@@ -128,7 +129,15 @@ export const AuthProvider = ({ children }) => {
   const fetchDokumentumokById = async (userId) => {
     try {
       const response = await myAxios.get(`/api/documentbyid/${userId}`);
-      setDokumentum(response.data);
+      setDokumentumById(response.data);
+    } catch (error) {
+      console.error("Hiba a célok lekérdezésekor:", error);
+    }
+  };
+  const fetchDokumentumok = async () => {
+    try {
+      const response = await myAxios.get(`/api/document`);
+      setDokumentumok(response.data);
     } catch (error) {
       console.error("Hiba a célok lekérdezésekor:", error);
     }
@@ -255,9 +264,11 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
+        fetchDokumentumok,
+        dokumentumok,
         dokumentumTorles,
         fetchDokumentumokById,
-        dokumentum,
+        dokumentumById,
         fetchPontszam,
         tanarPont,
         regisztracio,
