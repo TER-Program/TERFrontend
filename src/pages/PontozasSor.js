@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from "../contexts/AuthContext";
-import { Form } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
 function PontozasSor({ cel }) {
-  const { patchPontozas, user, postComment} =
-    useAuthContext();
+  const { patchPontozas, user, postComment, fetchCommentekById, commentek } = useAuthContext();
   const [score, setScore] = useState("");
   const [openRow, setOpenRow] = useState(false);
   const [commentText, setCommentText] = useState("");
 
+  // Handle score change
   const handleScoreChange = (e) => {
     setScore(e.target.value);
   };
 
+  // Handle Pontozas submission
   const handlePontozas = () => {
     if (score !== "") {
       patchPontozas(cel.id, score, user.id);
@@ -22,6 +22,7 @@ function PontozasSor({ cel }) {
     }
   };
 
+  // Handle comment submission
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
     if (!commentText.trim()) {
@@ -36,8 +37,12 @@ function PontozasSor({ cel }) {
       console.error("Hiba történt a hozzászólás beküldése közben:", error);
     }
   };
+
   const toggleRow = () => {
     setOpenRow(!openRow);
+    if (!openRow) {
+      fetchCommentekById(cel.id);
+    }
   };
 
   return (
@@ -64,9 +69,11 @@ function PontozasSor({ cel }) {
           </button>
         </td>
       </tr>
+
       {openRow && (
         <tr>
           <td colSpan="6">
+            {/* Comment form */}
             <form onSubmit={handleCommentSubmit}>
               <div className="mb-3">
                 <input
@@ -81,6 +88,25 @@ function PontozasSor({ cel }) {
                 Hozzászólás
               </Button>
             </form>
+
+            <div className="mt-3">
+              {commentek && commentek.length > 0 ? (
+                commentek.map((comment, index) => (
+                  <div key={index} className="border p-2 mb-2">
+                    <strong>{comment.name}</strong> <small>({comment.date})</small>
+                    <p className="commentText">{comment.text}</p>
+                    {comment.evaluator === user.id && (
+                      <Button variant="primary" type="submit" className="torlesGomb">
+                          Törlés
+                      </Button>
+                    )
+                    }
+                  </div>
+                ))
+              ) : (
+                <p>Nincs hozzászólás.</p>
+              )}
+            </div>
           </td>
         </tr>
       )}

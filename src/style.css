@@ -301,3 +301,9 @@ p{
 footer{
   text-align: end;
 }
+.commentText{
+  text-align: left;
+}
+.torlesGomb{
+  text-align: right;
+}

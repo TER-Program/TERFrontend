@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
   const [szerkesztettFelhasznalo, setSzerkesztettFelhasznalo] = useState(null);
   const [uzenet, setUzenet] = useState("");
   const [betoltes, setBetoltes] = useState(false);
-
+  const [commentek, setCommentek] = useState([]);
   const csrf = async () => {
     await myAxios.get("/sanctum/csrf-cookie");
   };
@@ -268,10 +268,20 @@ export const AuthProvider = ({ children }) => {
         console.error("Feltöltési hiba:", error);
       }
     };
+    const fetchCommentekById = async (id) => {
+      try {
+        const response = await myAxios.get(`/api/getcommentsbyid/${id}`);
+        setCommentek(response.data);
+      } catch (error) {
+        console.error("Hiba a felhasználók lekérdezésekor:", error);
+      }
+    };
 
   return (
     <AuthContext.Provider
       value={{
+        fetchCommentekById,
+        commentek,
         postComment,
         fetchDokumentumok,
         dokumentumok,
