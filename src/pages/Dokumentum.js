@@ -21,7 +21,7 @@ function Dokumentum({ doc, index }) {
             Megnyitás
           </button>
         </td>
-        {user.role === 2 || user.role === 0 && (
+        {user.role === 0 && (
           <td>
           <button onClick={handleTorles} className="btn btn-primary btn-sm">
             Törlés

@@ -14,9 +14,11 @@ import Felelos from './pages/Felelos';
 import Tanarok from './pages/Tanarok';
 import Dokumentumok from './pages/Dokumentumok';
 import DokumentumokErtekelo from './pages/DokumentumokErtekelo';
+import Footer from './pages/Footer';
 function App() {
     const { user } = useAuthContext();
     return (
+        <div className="app-container">
         <Routes>
             {/* Vendég layout */}
             {!user && (
@@ -53,6 +55,8 @@ function App() {
                 </>
             )}
         </Routes>
+        {<Footer />}
+        </div>
     );
 }
 

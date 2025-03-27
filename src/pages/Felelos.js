@@ -19,7 +19,6 @@ function Felelos() {
                 <th>Szempont neve</th>
                 <th>Pontszám</th>
                 <th>Maximális pontszám</th>
-                <th>Dokumentumok</th>
                 <th>Pontozás</th>
               </tr>
             </thead>

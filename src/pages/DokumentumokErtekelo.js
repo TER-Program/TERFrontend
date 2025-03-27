@@ -17,6 +17,10 @@ function DokumentumokErtekelo() {
               <th>Tanár</th>
               <th>Aspektus</th>
               <th>Link</th>
+              {user.role === 0 &&(
+                <th>Törlés</th>
+              )
+            }
             </tr>
           </thead>
           <tbody>

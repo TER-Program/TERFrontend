@@ -259,11 +259,19 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
         console.log("Upload error:", error);
     }
-};
-
+  }
+    const postComment = async (id,text) => {
+      try {
+        await myAxios.post(`/api/comment/${id}/${text}`);
+        console.log("Siker!");
+      } catch (error) {
+        console.error("Feltöltési hiba:", error);
+      }
+    };
   return (
     <AuthContext.Provider
       value={{
+        postComment,
         fetchDokumentumok,
         dokumentumok,
         dokumentumTorles,
@@ -297,7 +305,7 @@ export const AuthProvider = ({ children }) => {
         uzenet,
         betoltes,
         patchPontozas,
-        uploadPdf,
+        uploadPdf
       }}
     >
       {children}

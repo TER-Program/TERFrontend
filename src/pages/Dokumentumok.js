@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
-import { useAuthContext } from '../contexts/AuthContext'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Dokumentum from './Dokumentum';
+import React, { useEffect } from "react";
+import { useAuthContext } from "../contexts/AuthContext";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Dokumentum from "./Dokumentum";
 function Dokumentumok() {
   const { fetchDokumentumokById, dokumentumById, user } = useAuthContext();
   useEffect(() => {
-    fetchDokumentumokById(user.id)
+    fetchDokumentumokById(user.id);
   }, []);
   return (
     <div className="container mt-4">
@@ -17,11 +17,14 @@ function Dokumentumok() {
               <th>Tanár</th>
               <th>Aspektus</th>
               <th>Link</th>
+              {user.role === 0 && (
+                <th>Törlés</th>  
+              )}
             </tr>
           </thead>
           <tbody>
             {dokumentumById.map((doc, index) => (
-              <Dokumentum  key={index} doc={doc} />
+              <Dokumentum key={index} doc={doc} />
             ))}
           </tbody>
         </table>
@@ -32,4 +35,4 @@ function Dokumentumok() {
   );
 }
 
-export default Dokumentumok
+export default Dokumentumok;

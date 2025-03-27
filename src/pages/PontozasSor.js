@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import { useAuthContext } from '../contexts/AuthContext';
 
 function PontozasSor({ cel }) {
-  const { patchPontozas, user } = useAuthContext();
+  const { patchPontozas, user, postComment } = useAuthContext();
   const [score, setScore] = useState('');
+  const [openRow, setOpenRow] = useState(false);
+  const [commentText, setCommentText] = useState('');
 
   const handleScoreChange = (e) => {
     setScore(e.target.value);
   };
 
+  
   const handlePontozas = () => {
     if (score !== '') {
       patchPontozas(cel.id, score, user.id)
@@ -17,26 +20,66 @@ function PontozasSor({ cel }) {
     }
   };
 
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
+    if (!commentText.trim()) {
+      alert("A hozzászólás nem lehet üres!");
+      return;
+    }
+    try {
+      await postComment(cel.id, commentText);
+      setCommentText("");
+      console.log("Hozzászólás sikeresen elküldve!");
+    } catch (error) {
+      console.error("Hiba történt a hozzászólás beküldése közben:", error);
+    }
+  };
+
+  const toggleRow = () => {
+    setOpenRow(!openRow);
+  };
+
   return (
+    <>
     <tr key={cel.id}>
-      <td>{cel.teacher_name}</td>
-      <td>{cel.aspect_name}</td>
-      <td className='pontszam'>
-        <input
-          type="number"
-          min={0}
-          max={cel.max_score}
-          value={score}
-          onChange={handleScoreChange}
-        />
-      </td>
-      <td>{cel.max_score}</td>
-      <td>Dokumentumok</td>
-      <td>
-        <button onClick={handlePontozas}>Pontozás</button>
+    <td>{cel.teacher_name}</td>
+    <td>{cel.aspect_name}</td>
+    <td className='pontszam'>
+      <input
+        type="number"
+        min={0}
+        max={cel.max_score}
+        value={score}
+        onChange={handleScoreChange}
+      />
+    </td>
+    <td>{cel.max_score}</td>
+    <td>
+      <button onClick={handlePontozas}>Pontozás</button>
+    </td>
+    <td className="text-center">
+          <button onClick={toggleRow} className="p-0">
+            {openRow ? "▲" : "▼"}
+          </button>
+        </td>
+  </tr>
+   {openRow && (
+    <tr>
+      <td colSpan="6">
+        <form onSubmit={handleCommentSubmit}>
+          <input
+            type="text"
+            placeholder="Írja be a hozzászólást..."
+            value={commentText}
+            onChange={(e) => setCommentText(e.target.value)}
+          />
+          <button type="submit">Hozzászólás</button>
+        </form>
       </td>
     </tr>
-  );
+  )}
+  </>
+  )
 }
 
 export default PontozasSor;
