@@ -268,6 +268,7 @@ export const AuthProvider = ({ children }) => {
         console.error("Feltöltési hiba:", error);
       }
     };
+
   return (
     <AuthContext.Provider
       value={{
