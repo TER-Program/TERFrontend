@@ -25,9 +25,9 @@ export default function NavigacioFelelos() {
                         </Link>
                     </li>
                     <li className="navbar-item">
-                        <button className="nav-link" onClick={() => { logout() }}>
+                        <Link className="nav-link" onClick={() => { logout() }}>
                             Kijelentkezés
-                        </button>
+                        </Link>
                     </li>
 
 

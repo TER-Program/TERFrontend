@@ -44,7 +44,6 @@ function PontozasSor({ cel }) {
       fetchCommentekById(cel.id);
     }
   };
-
   return (
     <>
       <tr key={cel.id}>
