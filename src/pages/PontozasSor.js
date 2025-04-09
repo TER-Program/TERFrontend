@@ -3,7 +3,7 @@ import { useAuthContext } from "../contexts/AuthContext";
 import { Button } from "react-bootstrap";
 
 function PontozasSor({ cel }) {
-  const { patchPontozas, user, postComment, fetchCommentekById, commentek } = useAuthContext();
+  const { patchPontozas, user, postComment, fetchCommentek, commentek } = useAuthContext();
   const [score, setScore] = useState("");
   const [openRow, setOpenRow] = useState(false);
   const [commentText, setCommentText] = useState("");
@@ -37,11 +37,12 @@ function PontozasSor({ cel }) {
       console.error("Hiba történt a hozzászólás beküldése közben:", error);
     }
   };
+  const filteredComments = commentek.filter((comment) => comment.performanceGoal === cel.id);
 
   const toggleRow = () => {
     setOpenRow(!openRow);
-    if (!openRow) {
-      fetchCommentekById(cel.id);
+    if(!openRow){
+      fetchCommentek();
     }
   };
   return (
@@ -89,8 +90,8 @@ function PontozasSor({ cel }) {
             </form>
 
             <div className="mt-3">
-              {commentek && commentek.length > 0 ? (
-                commentek.map((comment, index) => (
+              {filteredComments && filteredComments.length > 0 ? (
+                filteredComments.map((comment, index) => (
                   <div key={index} className="border p-2 mb-2">
                     <strong>{comment.name}</strong> <small>({comment.date})</small>
                     <p className="commentText">{comment.text}</p>

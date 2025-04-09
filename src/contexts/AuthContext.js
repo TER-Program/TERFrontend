@@ -268,9 +268,9 @@ export const AuthProvider = ({ children }) => {
         console.error("Feltöltési hiba:", error);
       }
     };
-    const fetchCommentekById = async (id) => {
+    const fetchCommentek = async () => {
       try {
-        const response = await myAxios.get(`/api/getcommentsbyid/${id}`);
+        const response = await myAxios.get(`/api/getcomments`);
         setCommentek(response.data);
       } catch (error) {
         console.error("Hiba a felhasználók lekérdezésekor:", error);
@@ -280,7 +280,7 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        fetchCommentekById,
+        fetchCommentek,
         commentek,
         postComment,
         fetchDokumentumok,
