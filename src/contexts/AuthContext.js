@@ -277,9 +277,20 @@ export const AuthProvider = ({ children }) => {
       }
     };
 
+    
+  const commentTorles = async (comment) => {
+    setBetoltes(true);
+    try {
+      await myAxios.delete(`/api/deletecomment/${comment}`);
+    }catch(error){
+        console.error("Hiba a komment törlésekor")
+    }
+    }
+
   return (
     <AuthContext.Provider
       value={{
+        commentTorles,
         fetchCommentek,
         commentek,
         postComment,

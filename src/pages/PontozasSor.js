@@ -3,17 +3,16 @@ import { useAuthContext } from "../contexts/AuthContext";
 import { Button } from "react-bootstrap";
 
 function PontozasSor({ cel }) {
-  const { patchPontozas, user, postComment, fetchCommentek, commentek } = useAuthContext();
+  const { patchPontozas, user, postComment, fetchCommentek, commentek, commentTorles } =
+    useAuthContext();
   const [score, setScore] = useState("");
   const [openRow, setOpenRow] = useState(false);
   const [commentText, setCommentText] = useState("");
 
-  // Handle score change
   const handleScoreChange = (e) => {
     setScore(e.target.value);
   };
 
-  // Handle Pontozas submission
   const handlePontozas = () => {
     if (score !== "") {
       patchPontozas(cel.id, score, user.id);
@@ -22,7 +21,6 @@ function PontozasSor({ cel }) {
     }
   };
 
-  // Handle comment submission
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
     if (!commentText.trim()) {
@@ -33,15 +31,23 @@ function PontozasSor({ cel }) {
       await postComment(cel.id, commentText);
       setCommentText("");
       console.log("Hozzászólás sikeresen elküldve!");
+      fetchCommentek();
     } catch (error) {
       console.error("Hiba történt a hozzászólás beküldése közben:", error);
     }
   };
-  const filteredComments = commentek.filter((comment) => comment.performanceGoal === cel.id);
+
+  const handleCommentTorles = (id) => {
+    commentTorles(id)
+    fetchCommentek();
+  }
+  const filteredComments = commentek.filter(
+    (comment) => comment.performanceGoal === cel.id
+  );
 
   const toggleRow = () => {
     setOpenRow(!openRow);
-    if(!openRow){
+    if (!openRow) {
       fetchCommentek();
     }
   };
@@ -61,7 +67,10 @@ function PontozasSor({ cel }) {
         </td>
         <td>{cel.max_score}</td>
         <td>
-          <button onClick={handlePontozas}>Pontozás</button>
+          <Button variant="primary" type="submit" onClick={handlePontozas}>
+            Pontozás
+          </Button>
+          
         </td>
         <td className="text-center">
           <button onClick={toggleRow} className="p-0">
@@ -93,14 +102,14 @@ function PontozasSor({ cel }) {
               {filteredComments && filteredComments.length > 0 ? (
                 filteredComments.map((comment, index) => (
                   <div key={index} className="border p-2 mb-2">
-                    <strong>{comment.name}</strong> <small>({comment.date})</small>
+                    <strong>{comment.name}</strong>{" "}
+                    <small>({comment.date})</small>
                     <p className="commentText">{comment.text}</p>
                     {comment.evaluator === user.id && (
-                      <Button variant="primary" type="submit" className="torlesGomb">
+                       <Button variant="primary" type="submit" className="torlesGomb" onClick={() => handleCommentTorles(comment.id)}>
                           Törlés
                       </Button>
-                    )
-                    }
+                    )}
                   </div>
                 ))
               ) : (

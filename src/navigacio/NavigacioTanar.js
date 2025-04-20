@@ -26,7 +26,7 @@ export default function Navigaciotanar() {
                             Kijelentkezés
                         </Link>
                     </li>
-
+        
 
                 </ul>
             </div>

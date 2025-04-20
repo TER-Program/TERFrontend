@@ -305,5 +305,16 @@ footer{
   text-align: left;
 }
 .torlesGomb{
+  margin-left: 85%;
+  width: 100px;
   text-align: right;
+}
+
+.kijelentkezes{
+  text-align: right;
+}
+
+.p-0{
+  border: none;
+  background-color:none;
 }
