@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Card, Table, Button, Form } from "react-bootstrap";
-import { useAuthContext } from "../contexts/AuthContext";
+import { useAuthContext } from "../../contexts/AuthContext";
 import CelSor from "./CelSor";
 
 const Tanar = () => {

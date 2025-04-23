@@ -8,13 +8,14 @@ import TanarLayout from './layouts/TanarLayout';
 import { useAuthContext } from './contexts/AuthContext';
 import { Routes, Route } from 'react-router-dom';
 import GuestLayout from "./layouts/GuestLayout";
-import Admin from './pages/Admin';
-import Tanar from './pages/Tanar';
-import Felelos from './pages/Felelos';
-import Tanarok from './pages/Tanarok';
-import Dokumentumok from './pages/Dokumentumok';
-import DokumentumokErtekelo from './pages/DokumentumokErtekelo';
+import Admin from './pages/admin/Admin';
+import Tanar from './pages/tanar/Tanar';
+import Felelos from './pages/felelos/Felelos';
+import Tanarok from './pages/felelos/Tanarok';
+import Dokumentumok from './pages/tanar/Dokumentumok';
+import DokumentumokErtekelo from './pages/felelos/DokumentumokErtekelo';
 import Footer from './pages/Footer';
+import Megjegyzesek from './pages/tanar/Megjegyzesek';
 function App() {
     const { user } = useAuthContext();
     return (
@@ -43,6 +44,7 @@ function App() {
                         <Route element={<TanarLayout />}>
                             <Route path="/" element={<Tanar />} />
                             <Route path="Dokumentumok" element={<Dokumentumok />} />
+                            <Route path="Megjegyzesek" element={<Megjegyzesek />} />
                         </Route>
                     )}
                     {user.role === 1 && (

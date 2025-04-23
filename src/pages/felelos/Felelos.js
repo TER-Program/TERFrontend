@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table, Card } from "react-bootstrap";
-import { useAuthContext } from "../contexts/AuthContext";
+import { useAuthContext } from "../../contexts/AuthContext";
 import PontozasSor from "./PontozasSor";
 
 function Felelos() {

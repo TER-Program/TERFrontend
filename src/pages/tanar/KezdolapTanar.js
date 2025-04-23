@@ -1,4 +1,4 @@
-import useAuthContext from "../contexts/AuthContext";
+import useAuthContext from "../../contexts/AuthContext";
 import Tanar from "./Tanar";
 
 export default function KezdolapFelelos() {

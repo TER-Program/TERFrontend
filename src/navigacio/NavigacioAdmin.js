@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {useAuthContext}  from "../contexts/AuthContext";
-import Admin from "../pages/Admin";
+import Admin from "../pages/admin/Admin";
 
 export default function NavigacioAdmin() {
     const {  logout } = useAuthContext();

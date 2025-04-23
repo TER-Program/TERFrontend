@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useAuthContext } from '../contexts/AuthContext';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 export default function Admin() {
   const { fetchFelhasznalok, felhasznalok, szerkesztes, torles, mentes, szerkesztettFelhasznalo, setSzerkesztettFelhasznalo, uzenet, betoltes } = useAuthContext();

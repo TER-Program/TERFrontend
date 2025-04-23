@@ -22,6 +22,12 @@ export default function Navigaciotanar() {
                     </li>
 
                     <li className="navbar-item">
+                        <Link className="nav-link" to="Megjegyzesek">
+                            Megjegyzések    
+                        </Link>
+                    </li>
+
+                    <li className="navbar-item">
                         <Link className="nav-link" onClick={() => { logout() }}>
                             Kijelentkezés
                         </Link>

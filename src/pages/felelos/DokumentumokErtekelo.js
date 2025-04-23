@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import { useAuthContext } from '../contexts/AuthContext'
+import { useAuthContext } from '../../contexts/AuthContext'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Dokumentum from './Dokumentum';
+import Dokumentum from '../tanar/Dokumentum';
 function DokumentumokErtekelo() {
   const { fetchDokumentumok, dokumentumok, user } = useAuthContext();
   useEffect(() => {
@@ -15,7 +15,7 @@ function DokumentumokErtekelo() {
             <tr>
               <th>Dokumentum neve</th>
               <th>Tanár</th>
-              <th>Aspektus</th>
+              <th>Szempont</th>
               <th>Link</th>
               {user.role === 0 &&(
                 <th>Törlés</th>

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useAuthContext } from "../contexts/AuthContext";
+import { useAuthContext } from "../../contexts/AuthContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Dokumentum from "./Dokumentum";
 function Dokumentumok() {
@@ -15,7 +15,7 @@ function Dokumentumok() {
             <tr>
               <th>Dokumentum neve</th>
               <th>Tanár</th>
-              <th>Aspektus</th>
+              <th>Szempont</th>
               <th>Link</th>
               {user.role === 0 && (
                 <th>Törlés</th>  

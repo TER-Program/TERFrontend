@@ -1,7 +1,7 @@
 import { Card, Table } from "react-bootstrap";
-import { useAuthContext } from "../contexts/AuthContext";
+import { useAuthContext } from "../../contexts/AuthContext";
 import { useEffect } from "react";
-import { myAxios } from "../contexts/MyAxios";
+import { myAxios } from "../../contexts/MyAxios";
 
 function Tanarok() {
 
