@@ -318,3 +318,8 @@ footer{
   border: none;
   background-color:none;
 }
+
+.comment-card{
+  background-color: rgba(255, 255, 255, 0.562);
+  border-radius: 20px;
+}

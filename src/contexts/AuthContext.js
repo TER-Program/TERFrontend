@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
   const [uzenet, setUzenet] = useState("");
   const [betoltes, setBetoltes] = useState(false);
   const [commentek, setCommentek] = useState([]);
+  const [commentekById, setCommentekById] = useState([]); 
   const csrf = async () => {
     await myAxios.get("/sanctum/csrf-cookie");
   };
@@ -285,9 +286,20 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const fetchCommentekById = async (userId) => {
+    try {
+      const response = await myAxios.get(`/api/commentbyid/${userId}`);
+      setCommentekById(response.data);
+    } catch (error) {
+      console.error("Hiba a commentek lekérdezésekor:", error);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
+        fetchCommentekById,
+        commentekById,
         commentTorles,
         fetchCommentek,
         commentek,
