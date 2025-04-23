@@ -171,8 +171,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-
-
   const fetchFelhasznalok = async () => {
     try {
       const response = await myAxios.get("/api/admin/users");
@@ -191,10 +189,10 @@ export const AuthProvider = ({ children }) => {
     try {
       await myAxios.delete(`/api/deletedocument/${dokumentum}`);
       window.location.reload();
-    }catch(error){
-        console.error("Hiba a dokumentum törlésekor")
+    } catch (error) {
+      console.error("Hiba a dokumentum törlésekor");
     }
-    }
+  };
 
   const torles = async (felhasznaloId) => {
     setBetoltes(true);
@@ -252,40 +250,40 @@ export const AuthProvider = ({ children }) => {
 
   const uploadPdf = async (adat, vegpont) => {
     try {
-        await myAxios.post(vegpont, adat) // FormData-t küldjük el
-            .then((resp) => {
-                console.log("Response:", resp);
-            });
+      await myAxios
+        .post(vegpont, adat) // FormData-t küldjük el
+        .then((resp) => {
+          console.log("Response:", resp);
+        });
     } catch (error) {
-        console.log("Upload error:", error);
+      console.log("Upload error:", error);
     }
-  }
-    const postComment = async (id,text) => {
-      try {
-        await myAxios.post(`/api/comment/${id}/${text}`);
-        console.log("Siker!");
-      } catch (error) {
-        console.error("Feltöltési hiba:", error);
-      }
-    };
-    const fetchCommentek = async () => {
-      try {
-        const response = await myAxios.get(`/api/getcomments`);
-        setCommentek(response.data);
-      } catch (error) {
-        console.error("Hiba a felhasználók lekérdezésekor:", error);
-      }
-    };
+  };
+  const postComment = async (id, text) => {
+    try {
+      await myAxios.post(`/api/comment/${id}/${text}`);
+      console.log("Siker!");
+    } catch (error) {
+      console.error("Feltöltési hiba:", error);
+    }
+  };
+  const fetchCommentek = async () => {
+    try {
+      const response = await myAxios.get(`/api/getcomments`);
+      setCommentek(response.data);
+    } catch (error) {
+      console.error("Hiba a felhasználók lekérdezésekor:", error);
+    }
+  };
 
-    
   const commentTorles = async (comment) => {
     setBetoltes(true);
     try {
       await myAxios.delete(`/api/deletecomment/${comment}`);
-    }catch(error){
-        console.error("Hiba a komment törlésekor")
+    } catch (error) {
+      console.error("Hiba a komment törlésekor");
     }
-    }
+  };
 
   return (
     <AuthContext.Provider
@@ -327,7 +325,7 @@ export const AuthProvider = ({ children }) => {
         uzenet,
         betoltes,
         patchPontozas,
-        uploadPdf
+        uploadPdf,
       }}
     >
       {children}
