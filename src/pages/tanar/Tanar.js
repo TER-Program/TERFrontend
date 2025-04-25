@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Card, Table, Button, Form } from "react-bootstrap";
+import { Card, Table, Button, Form, Container } from "react-bootstrap";
 import { useAuthContext } from "../../contexts/AuthContext";
 import CelSor from "./CelSor";
 
@@ -12,9 +12,10 @@ const Tanar = () => {
   }, []);
 
   return (
+    <Container className="mt-4">
+    <h2 className="mb-4">Teljesítmény Célok</h2>
     <Card className="p-4">
-      <h2 className="mb-4">Teljesítmény Célok</h2>
-      <Table striped bordered hover>
+      <Table striped bordered hover >
         <thead>
           <tr>
             <th>Tanár</th>
@@ -31,6 +32,7 @@ const Tanar = () => {
         </tbody>
       </Table>
     </Card>
+    </Container>
   );
 };
 

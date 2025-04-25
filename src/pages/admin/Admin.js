@@ -1,12 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthContext } from '../../contexts/AuthContext';
+import {
+  Container,
+  Form,
+  Button,
+  Table,
+  Alert,
+  Row,
+  Col,
+  Card,
+} from 'react-bootstrap';
 
 export default function Admin() {
-  const { fetchFelhasznalok, felhasznalok, szerkesztes, torles, mentes, szerkesztettFelhasznalo, setSzerkesztettFelhasznalo, uzenet, betoltes } = useAuthContext();
+  const {
+    fetchFelhasznalok,
+    felhasznalok,
+    szerkesztes,
+    torles,
+    mentes,
+    szerkesztettFelhasznalo,
+    setSzerkesztettFelhasznalo,
+    uzenet,
+    betoltes,
+  } = useAuthContext();
+
   const [nev, setNev] = useState('');
   const [email, setEmail] = useState('');
   const [jogosultsag, setJogosultsag] = useState('');
-  const [searchTerm, setSearchTerm] = useState(''); // Új állapot a keresési kifejezéshez
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetchFelhasznalok();
@@ -24,25 +45,29 @@ export default function Admin() {
     setSearchTerm(event.target.value);
   };
 
-  const filteredFelhasznalok = felhasznalok.filter(felhasznalo =>
+  const filteredFelhasznalok = felhasznalok.filter((felhasznalo) =>
     felhasznalo.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     felhasznalo.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div className="container">
-      <h1>Admin Felület</h1>
-      <p>Üdvözöljük az admin felületen!</p>
-      {uzenet && <div className="alert alert-info">{uzenet}</div>}
-      <h2>Felhasználók</h2>
-      <input 
-        type="text" 
-        placeholder="Keresés név vagy email alapján..." 
-        value={searchTerm} 
-        onChange={handleSearch} 
-        className="form-control mb-3"
+    <Container className="mt-4">
+      <h1 className="text-center mb-3">Admin Felület</h1>
+      <p className="text-center">Üdvözöljük az admin felületen!</p>
+
+      {uzenet && <Alert variant="info">{uzenet}</Alert>}
+
+      <h2 className="mt-4">Felhasználók</h2>
+
+      <Form.Control
+        type="text"
+        placeholder="Keresés név vagy email alapján..."
+        value={searchTerm}
+        onChange={handleSearch}
+        className="mb-3"
       />
-      <table className="table">
+
+      <Table striped bordered hover responsive>
         <thead>
           <tr>
             <th>ID</th>
@@ -60,36 +85,89 @@ export default function Admin() {
               <td>{felhasznalo.email}</td>
               <td>{felhasznalo.role}</td>
               <td>
-                <button className="btn btn-warning" onClick={() => szerkesztes(felhasznalo)}>Szerkesztés</button>
-                <button className="btn btn-danger" onClick={() => torles(felhasznalo.id)} disabled={betoltes}>Törlés</button>
+                <Button
+                  variant="warning"
+                  size="sm"
+                  className="me-2"
+                  onClick={() => szerkesztes(felhasznalo)}
+                >
+                  Szerkesztés
+                </Button>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => torles(felhasznalo.id)}
+                  disabled={betoltes}
+                >
+                  Törlés
+                </Button>
               </td>
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
+
       {szerkesztettFelhasznalo && (
-        <div className="edit-form">
-          <h3>Felhasználó szerkesztése</h3>
-          <label className="form-label">
-            Név:
-            <input type="text" className="form-control" value={nev} onChange={(e) => setNev(e.target.value)} />
-          </label>
-          <label className="form-label">
-            Email:
-            <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
-          </label>
-          <label className="form-label">
-            Jogosultság:
-            <select className="form-control" value={jogosultsag} onChange={(e) => setJogosultsag(e.target.value)}>
-              <option value="1">Admin</option>
-              <option value="2">Tanár</option>
-              <option value="3">Tér Felelős</option>
-            </select>
-          </label>
-          <button className="btn btn-primary" onClick={() => mentes(nev, email, jogosultsag)} disabled={betoltes}>Mentés</button>
-          <button className="btn btn-secondary" onClick={() => setSzerkesztettFelhasznalo(null)} disabled={betoltes}>Mégse</button>
-        </div>
+        <Card className="mt-4">
+          <Card.Body>
+            <Card.Title>Felhasználó szerkesztése</Card.Title>
+            <Form>
+              <Form.Group className="mb-3">
+                <Form.Label>Név</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={nev}
+                  onChange={(e) => setNev(e.target.value)}
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Form.Group>
+
+              <Form.Group className="mb-3">
+                <Form.Label>Jogosultság</Form.Label>
+                <Form.Select
+                  value={jogosultsag}
+                  onChange={(e) => setJogosultsag(e.target.value)}
+                >
+                  <option value="1">Admin</option>
+                  <option value="2">Tanár</option>
+                  <option value="3">Tér Felelős</option>
+                </Form.Select>
+              </Form.Group>
+
+              <Row>
+                <Col>
+                  <Button
+                    variant="primary"
+                    onClick={() => mentes(nev, email, jogosultsag)}
+                    disabled={betoltes}
+                    className="w-100"
+                  >
+                    Mentés
+                  </Button>
+                </Col>
+                <Col>
+                  <Button
+                    variant="secondary"
+                    onClick={() => setSzerkesztettFelhasznalo(null)}
+                    disabled={betoltes}
+                    className="w-100"
+                  >
+                    Mégse
+                  </Button>
+                </Col>
+              </Row>
+            </Form>
+          </Card.Body>
+        </Card>
       )}
-    </div>
+    </Container>
   );
 }

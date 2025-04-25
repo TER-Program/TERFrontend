@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Card } from "react-bootstrap";
+import { Table, Card, Container } from "react-bootstrap";
 import { useAuthContext } from "../../contexts/AuthContext";
 import PontozasSor from "./PontozasSor";
 
@@ -16,43 +16,45 @@ function Felelos() {
   }, []);
   return (
     <div>
-      <h1>Pontozás</h1>
-      <Card>
-        <Card.Header>
-          <select
-            className="form-select"
-            value={selectedPedagogusId}
-            onChange={(e) => {
-              setSelectedPedagogusId(e.target.value);
-            }}
-          >
-            <option value="">Válassz tanárt</option>
-            {pedagogusok.map((ped, index) => (
-              <option key={index} value={ped.id}>
-                {ped.name}
-              </option>
-            ))}
-          </select>
-        </Card.Header>
-        <Card.Body>
-          <Table striped bordered hover responsive>
-            <thead>
-              <tr>
-                <th>Tanár neve</th>
-                <th>Szempont neve</th>
-                <th>Pontszám</th>
-                <th>Maximális pontszám</th>
-                <th>Pontozás</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredCelok.map((cel, index) => (
-                <PontozasSor cel={cel} key={index} />
+      <Container className="mt-4">
+        <h2>Pontozás</h2>
+        <Card>
+          <Card.Header>
+            <select
+              className="form-select"
+              value={selectedPedagogusId}
+              onChange={(e) => {
+                setSelectedPedagogusId(e.target.value);
+              }}
+            >
+              <option value="">Válassz tanárt</option>
+              {pedagogusok.map((ped, index) => (
+                <option key={index} value={ped.id}>
+                  {ped.name}
+                </option>
               ))}
-            </tbody>
-          </Table>
-        </Card.Body>
-      </Card>
+            </select>
+          </Card.Header>
+          <Card.Body>
+            <Table striped bordered hover responsive>
+              <thead>
+                <tr>
+                  <th>Tanár neve</th>
+                  <th>Szempont neve</th>
+                  <th>Pontszám</th>
+                  <th>Maximális pontszám</th>
+                  <th>Pontozás</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredCelok.map((cel, index) => (
+                  <PontozasSor cel={cel} key={index} />
+                ))}
+              </tbody>
+            </Table>
+          </Card.Body>
+        </Card>
+      </Container>
     </div>
   );
 }

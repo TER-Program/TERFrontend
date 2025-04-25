@@ -9,7 +9,7 @@ function Megjegyzesek(cel) {
   }, []);
   return (
     <Container className="my-5">
-        <h4 className="mb-4">Hozzászólások</h4>
+        <h4 className="mb-4">Megjegyzések</h4>
         {commentekById.map((comment) => (
             <Card key={comment.comment_id} className="mb-3 shadow-sm">
                 <Card.Body>

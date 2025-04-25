@@ -1,26 +1,31 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useAuthContext }  from "../contexts/AuthContext";
+import { Link, useLocation } from "react-router-dom";
+import { useAuthContext } from "../contexts/AuthContext";
 
 export default function NavigacioFelelos() {
-    const {  logout } = useAuthContext();
+    const { logout } = useAuthContext();
+    const location = useLocation(); // Az aktuális URL lekérése
+
+    const isActive = (path) => {
+        return location.pathname === path ? "active" : "";
+    };
 
     return (
         <nav className="navbar navbar-expand-sm bg-light">
             <div className="container-fluid">
                 <ul className="navbar-nav">
-                    <li className="navbar-item">
+                    <li className={`navbar-item ${isActive('/')}`}>
                         <Link className="nav-link" to="/">
                             Pontozás
                         </Link>
                     </li>
-                    <li className="navbar-item">
-                        <Link className="nav-link" to="tanarok">
+                    <li className={`navbar-item ${isActive('/tanarok')}`}>
+                        <Link className="nav-link" to="/tanarok">
                             Tanárok
                         </Link>
                     </li>
-                    <li className="navbar-item">
-                        <Link className="nav-link" to="Dokumentumok">
+                    <li className={`navbar-item ${isActive('/Dokumentumok')}`}>
+                        <Link className="nav-link" to="/Dokumentumok">
                             Dokumentumok
                         </Link>
                     </li>
@@ -29,8 +34,6 @@ export default function NavigacioFelelos() {
                             Kijelentkezés
                         </Link>
                     </li>
-
-
                 </ul>
             </div>
         </nav>
