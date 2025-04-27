@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
+import { Button, Card, Container, Form } from 'react-bootstrap';
 
 export default function Bejelentkezes() {
   const [email, setEmail] = useState("");
@@ -18,47 +19,35 @@ export default function Bejelentkezes() {
   }
 
   return (
-    <div className="m-auto" style={{ maxWidth: "400px" }}>
-      <h1 className="text-center">Bejelentkezés</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3 mt-3">
-          <label htmlFor="email" className="form-label">
-            Email:
-          </label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            className="form-control"
-            id="email"
-            placeholder="Email"
-            name="email"
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="pwd" className="form-label">
-            Jelszó:
-          </label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            className="form-control"
-            id="pwd"
-            placeholder="Jelszó"
-            name="pwd"
-          />
-        </div>
-
-
-        <button type="submit" className="btn btn-primary w-100">
-          Bejelentkezés
-        </button>
-      </form>
-    </div>
+    <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
+      <Card style={{ width: '100%', maxWidth: '400px' }} className="p-4 shadow">
+        <h1 className="text-center mb-4">Bejelentkezés</h1>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3" controlId="email">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Form.Group>
+  
+          <Form.Group className="mb-3" controlId="password">
+            <Form.Label>Jelszó</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Jelszó"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Form.Group>
+  
+          <Button variant="primary" type="submit" className="w-100">
+            Bejelentkezés
+          </Button>
+        </Form>
+      </Card>
+    </Container>
   );
 }
