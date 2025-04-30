@@ -21,8 +21,8 @@ export const AuthProvider = ({ children }) => {
   const [commentek, setCommentek] = useState([]);
   const [commentekById, setCommentekById] = useState([]);
   const [tanarPontById, setTanarPontById] = useState([]);
-  const [osszesPontozottCelById,setOsszesPontozottCelById] = useState([]);
-  const [osszesPontozottCel,setOsszesPontozottCel] = useState([]);
+  const [osszesPontozottCelById, setOsszesPontozottCelById] = useState([]);
+  const [osszesPontozottCel, setOsszesPontozottCel] = useState([]);
 
   const csrf = async () => {
     await myAxios.get("/sanctum/csrf-cookie");
@@ -335,9 +335,18 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const changePassword = (data) =>
+    myAxios.post("/api/change-password", data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      validateStatus: () => true,
+    });
+
   return (
     <AuthContext.Provider
       value={{
+        changePassword,
         fetchOsszesPontozottCel,
         osszesPontozottCel,
         resetScore,

@@ -38,7 +38,11 @@ export default function Navigaciotanar() {
                             Pontszám
                         </Link>
                     </li>
-
+                    <li className={`navbar-item ${isActive('/JelszoValtoztatas')}`}>
+                        <Link className="nav-link" to="/JelszoValtoztatas">
+                            Jelszó változtatás
+                        </Link>
+                    </li>
                     <li className="navbar-item">
                         <Link className="nav-link" onClick={() => { logout() }}>
                             Kijelentkezés

@@ -120,16 +120,6 @@ export default function Admin() {
                   onChange={(e) => setNev(e.target.value)}
                 />
               </Form.Group>
-
-              <Form.Group className="mb-3">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Jogosultság</Form.Label>
                 <Form.Select

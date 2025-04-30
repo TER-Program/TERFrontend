@@ -24,7 +24,6 @@ export default function NavigacioVendeg() {
                             Regisztráció
                         </Link>
                     </li>
-
                 </ul>
             </div>
         </nav>

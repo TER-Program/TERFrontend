@@ -14,7 +14,7 @@ const Tanar = () => {
     <Container className="mt-4">
     <h2 className="mb-4">Teljesítmény Célok</h2>
     <Card className="p-4">
-      <Table striped bordered hover >
+      <Table striped bordered hover responsive>
         <thead>
           <tr>
             <th>Tanár</th>
