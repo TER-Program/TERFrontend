@@ -8,7 +8,6 @@ const Tanar = () => {
 
   useEffect(() => {
     fetchCelokById(user.id);
-    console.log(celok)
   }, []);
 
   return (

@@ -29,6 +29,11 @@ export default function NavigacioFelelos() {
                             Dokumentumok
                         </Link>
                     </li>
+                    <li className={`navbar-item ${isActive('/Pontozott')}`}>
+                        <Link className="nav-link" to="/Pontozott">
+                            Pontozottak
+                        </Link>
+                    </li>
                     <li className="navbar-item">
                         <Link className="nav-link" onClick={() => { logout() }}>
                             Kijelentkezés

@@ -12,8 +12,6 @@ code {
     monospace;
 }
 
-@import url('https://fonts.google.com/specimen/Montserrat');
-
 body {
-    font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }

@@ -9,7 +9,6 @@ function PontozasSor({ cel }) {
   const [openRow, setOpenRow] = useState(false);
   const [commentText, setCommentText] = useState("");
 
-  console.log(cel)
 
   const handleScoreChange = (e) => {
     setScore(e.target.value);

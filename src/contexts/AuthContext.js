@@ -19,7 +19,10 @@ export const AuthProvider = ({ children }) => {
   const [uzenet, setUzenet] = useState("");
   const [betoltes, setBetoltes] = useState(false);
   const [commentek, setCommentek] = useState([]);
-  const [commentekById, setCommentekById] = useState([]); 
+  const [commentekById, setCommentekById] = useState([]);
+  const [tanarPontById, setTanarPontById] = useState([]);
+  const [osszesPontozottCelById,setOsszesPontozottCelById] = useState([]);
+
   const csrf = async () => {
     await myAxios.get("/sanctum/csrf-cookie");
   };
@@ -295,9 +298,41 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const fetchTanarPontById = async (userId) => {
+    try {
+      const response = await myAxios.get(`/api/allscorebyteacher/${userId}`);
+      setTanarPontById(response.data);
+    } catch (error) {
+      console.error("Hiba a tanári pontok lekérdezésekor:", error);
+    }
+  };
+
+  const fetchPontozottCelById = async (userId) => {
+    try {
+      const response = await myAxios.get(`/api/scoredgoals/${userId}`);
+      setOsszesPontozottCelById(response.data);
+    } catch (error) {
+      console.error("Hiba a pontozott célok lekérdezésekor:", error);
+    }
+  };
+
+  const resetScore = async (id) => {
+    try {
+      const response = await myAxios.put(`/api/resetscore/${id}`);
+      window.location.reload();
+    } catch (error) {
+      console.error("Hiba a pontozott célok lekérdezésekor:", error);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
+        resetScore,
+        fetchPontozottCelById,
+        osszesPontozottCelById,
+        fetchTanarPontById,
+        tanarPontById,
         fetchCommentekById,
         commentekById,
         commentTorles,

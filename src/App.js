@@ -16,6 +16,8 @@ import Dokumentumok from './pages/tanar/Dokumentumok';
 import DokumentumokErtekelo from './pages/felelos/DokumentumokErtekelo';
 import Footer from './pages/Footer';
 import Megjegyzesek from './pages/tanar/Megjegyzesek';
+import TanarPont from './pages/tanar/TanarPont';
+import TeljesitmenyCelok from './pages/felelos/TeljesitmenyCelok';
 function App() {
     const { user } = useAuthContext();
     return (
@@ -45,6 +47,7 @@ function App() {
                             <Route path="/" element={<Tanar />} />
                             <Route path="Dokumentumok" element={<Dokumentumok />} />
                             <Route path="Megjegyzesek" element={<Megjegyzesek />} />
+                            <Route path="TanarPont" element={<TanarPont />} />
                         </Route>
                     )}
                     {user.role === 1 && (
@@ -52,6 +55,7 @@ function App() {
                             <Route path="/" element={<Felelos />} />
                             <Route path="Tanarok" element={<Tanarok />} />
                             <Route path="Dokumentumok" element={<DokumentumokErtekelo />} />
+                            <Route path="Pontozott" element={<TeljesitmenyCelok />} />
                         </Route>
                     )}
                 </>

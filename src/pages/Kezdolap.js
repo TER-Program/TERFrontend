@@ -9,10 +9,7 @@ export default function Kezdolap() {
     return (
         <div>
             <h1>Tanár Teljesítményértékelés Rendszer</h1>
-            
             <p>Bejelentkezett felhasználó: { user==null?"Nincs bejelentkezett felhasználó!":user.name }</p>
-            
-            
         </div>
     );
 }

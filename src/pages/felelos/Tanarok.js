@@ -1,7 +1,6 @@
 import { Card, Container, Table } from "react-bootstrap";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useEffect } from "react";
-import { myAxios } from "../../contexts/MyAxios";
 
 function Tanarok() {
   const { tanarPont, fetchPontszam, user, getUser, feltoltes } =

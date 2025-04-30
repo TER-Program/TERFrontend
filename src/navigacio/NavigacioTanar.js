@@ -33,6 +33,12 @@ export default function Navigaciotanar() {
                         </Link>
                     </li>
 
+                    <li className={`navbar-item ${isActive('/TanarPont')}`}>
+                        <Link className="nav-link" to="/TanarPont">
+                            Pontszám
+                        </Link>
+                    </li>
+
                     <li className="navbar-item">
                         <Link className="nav-link" onClick={() => { logout() }}>
                             Kijelentkezés
