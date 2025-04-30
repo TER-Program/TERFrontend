@@ -126,9 +126,9 @@ export default function Admin() {
                   value={jogosultsag}
                   onChange={(e) => setJogosultsag(e.target.value)}
                 >
-                  <option value="1">Admin</option>
+                  <option value="0">Admin</option>
                   <option value="2">Tanár</option>
-                  <option value="3">Tér Felelős</option>
+                  <option value="1">Tér Felelős</option>
                 </Form.Select>
               </Form.Group>
 
