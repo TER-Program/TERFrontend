@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }) => {
   const [commentekById, setCommentekById] = useState([]);
   const [tanarPontById, setTanarPontById] = useState([]);
   const [osszesPontozottCelById,setOsszesPontozottCelById] = useState([]);
+  const [osszesPontozottCel,setOsszesPontozottCel] = useState([]);
 
   const csrf = async () => {
     await myAxios.get("/sanctum/csrf-cookie");
@@ -325,9 +326,20 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const fetchOsszesPontozottCel = async () => {
+    try {
+      const response = await myAxios.get(`/api/allscoredgoals`);
+      setOsszesPontozottCel(response.data);
+    } catch (error) {
+      console.error("Hiba a pontozott célok lekérdezésekor:", error);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
+        fetchOsszesPontozottCel,
+        osszesPontozottCel,
         resetScore,
         fetchPontozottCelById,
         osszesPontozottCelById,

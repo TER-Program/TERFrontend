@@ -40,6 +40,7 @@ function App() {
                             <Route path="/" element={<Admin />} />
                             <Route path="Tanarok" element={<Tanarok />} />
                             <Route path="Dokumentumok" element={<DokumentumokErtekelo />} />
+                            <Route path="Pontozott" element={<TeljesitmenyCelok />} />
                         </Route>
                     )}
                     {user.role === 2 && (

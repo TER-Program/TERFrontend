@@ -30,6 +30,11 @@ export default function NavigacioAdmin() {
                             Dokumentumok
                         </Link>
                     </li>
+                    <li className={`navbar-item ${isActive('/Pontozott')}`}>
+                        <Link className="nav-link" to="/Pontozott">
+                            Pontozott teljesítménycélok
+                        </Link>
+                    </li>
                     <li className="navbar-item">
                         <Link className="nav-link" onClick={() => { logout() }}>
                             Kijelentkezés

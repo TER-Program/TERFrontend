@@ -7,6 +7,7 @@ function TeljesitmenyCel(cel) {
     return (
         <tr key={cel.cel.id}>
           <td>{cel.cel.teacher_name}</td>
+          <td>{cel.cel.evaluator_name}</td>
           <td>{cel.cel.aspect_name}</td>
           <td>{cel.cel.aspect_description}</td>
           <td>{cel.cel.score}</td>

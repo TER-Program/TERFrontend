@@ -4,12 +4,16 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import TeljesitmenyCel from "./TeljesitmenyCel";
 
 function TeljesitmenyCelok() {
-  const { user, fetchPontozottCelById, osszesPontozottCelById } =
+  const { user, fetchPontozottCelById, osszesPontozottCelById, fetchOsszesPontozottCel, osszesPontozottCel } =
     useAuthContext();
   useEffect(() => {
     fetchPontozottCelById(user.id);
+    fetchOsszesPontozottCel();
     console.log(osszesPontozottCelById);
   }, []);
+
+  const filteredCelok =
+  user.role === 0 ? osszesPontozottCel : osszesPontozottCelById;
 
   return (
     <Container className="mt-4">
@@ -20,6 +24,7 @@ function TeljesitmenyCelok() {
             <thead>
               <tr>
                 <th>Tanár neve</th>
+                <th>Értékelő neve</th>
                 <th>Szempont neve</th>
                 <th>Leírás</th>
                 <th>Pontszám</th>
@@ -27,7 +32,7 @@ function TeljesitmenyCelok() {
               </tr>
             </thead>
             <tbody>
-              {osszesPontozottCelById.map((cel, index) => (
+              {filteredCelok.map((cel, index) => (
                 <TeljesitmenyCel cel={cel} key={index} />
               ))}
             </tbody>
